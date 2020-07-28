@@ -1,6 +1,5 @@
 FROM python:3.8.4
 ENV PYTHONUNBUFFERED 1
-
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     swig \
@@ -14,3 +13,4 @@ RUN pip install -U pip && pip install -Ur /code/requirements.txt
 
 WORKDIR /code
 COPY . /code/
+# RUN /code/manage.py collectstatic --noinput
