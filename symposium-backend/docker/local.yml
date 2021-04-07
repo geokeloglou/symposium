@@ -1,0 +1,56 @@
+version: "3.7"
+
+services:
+
+  symposium_api:
+    build:
+      dockerfile: Symposium.Web/Dockerfile
+      target: development
+      context: ..
+    networks:
+      - symposium
+    container_name: symposium_api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ENV=Development
+    volumes:
+      - ../Symposium.Web:/app/Symposium.Web
+      - ../Symposium.Data:/app/Symposium.Data
+      - ../Symposium.DTO:/app/Symposium.DTO
+      - ../Symposium.Services:/app/Symposium.Services
+      - ../Configs:/Configs
+      - /app/Symposium.Web/bin
+      - /app/Symposium.Web/obj
+      - /app/Symposium.Data/bin
+      - /app/Symposium.Data/obj
+      - /app/Symposium.Services/bin
+      - /app/Symposium.Services/obj
+      - /app/Symposium.DTO/bin
+      - /app/Symposium.DTO/obj
+    ports:
+      - "5000:80"
+    
+  symposium_db:
+    image: postgres:12
+    environment:
+      - POSTGRES_USER=symposium
+      - POSTGRES_PASSWORD=symposium
+      - POSTGRES_DB=symposium
+    volumes:
+      - ../data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - symposium
+
+  maildev:
+    image: maildev/maildev
+    networks:
+      - symposium
+    command: "maildev --hide-extensions STARTTLS --base-pathname /maildev/ -s 25 -w 80"
+    container_name: lp_maildev
+    ports:
+      - "1080:80"
+
+networks:
+  symposium:
