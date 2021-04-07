@@ -1,15 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
 
 namespace Symposium.Web
 {
@@ -30,11 +24,9 @@ namespace Symposium.Web
                 options.UseNpgsql(Configuration.GetSection("ConnectionStrings:DefaultConnection").Value);
                 options.EnableSensitiveDataLogging();
             });
-            services.AddPgConnection(Configuration.GetSection("ConnectionStrings:DefaultConnection").Value, "public");
             services.AddCors(options => options.AddPolicy("AllowAll", p => p.AllowAnyOrigin()
                 .AllowAnyMethod()
                 .AllowAnyHeader())); 
-            services.AddControllers();
             services.AddControllers();
         }
 

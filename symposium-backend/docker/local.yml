@@ -33,8 +33,8 @@ services:
   symposium_db:
     image: postgres:12
     environment:
-      - POSTGRES_USER=symposium
-      - POSTGRES_PASSWORD=symposium
+      - POSTGRES_USER=symposiumuser
+      - POSTGRES_PASSWORD=symposiumuser
       - POSTGRES_DB=symposium
     volumes:
       - ../data:/var/lib/postgresql/data
