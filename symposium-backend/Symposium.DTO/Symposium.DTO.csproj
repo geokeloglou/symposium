@@ -8,18 +8,4 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
- <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Cryptography.KeyDerivation" Version="3.1.9" />
-    <PackageReference Include="Microsoft.Extensions.Http" Version="3.1.9" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.9" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="3.1.9" />
-    <PackageReference Include="Dapper" Version="2.0.78" />
-    <PackageReference Include="jose-jwt" Version="2.6.0" />
-    <PackageReference Include="Serilog.AspNetCore" Version="3.2.0" />
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
-    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.8.0" />
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.8.0" />
-    <PackageReference Include="NETCore.MailKit" Version="2.0.3" />
-  </ItemGroup>
-
 </Project>
