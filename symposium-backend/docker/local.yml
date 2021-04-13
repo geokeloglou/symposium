@@ -48,7 +48,7 @@ services:
     networks:
       - symposium
     command: "maildev --hide-extensions STARTTLS --base-pathname /maildev/ -s 25 -w 80"
-    container_name: lp_maildev
+    container_name: symposium_maildev
     ports:
       - "1080:80"
 
