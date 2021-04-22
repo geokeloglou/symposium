@@ -4,6 +4,7 @@ import { HomeComponent } from './views/home/home.component';
 import { MainComponent } from './components/main/main.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { NavComponent } from './components/nav/nav.component';
+import { PostComponent } from './components/post/post.component';
 
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
@@ -21,7 +22,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     HomeComponent,
     MainComponent,
     ToolbarComponent,
-    NavComponent
+    NavComponent,
+    PostComponent
   ],
   imports: [
     BrowserModule,
