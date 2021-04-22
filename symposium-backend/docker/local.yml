@@ -31,11 +31,12 @@ services:
       - "5000:80"
     
   symposium_db:
+    container_name: symposium_db
     image: postgres:12
     environment:
       - POSTGRES_USER=symposiumuser
       - POSTGRES_PASSWORD=symposiumuser
-      - POSTGRES_DB=symposium
+      - POSTGRES_DB=symposiumdb
     volumes:
       - ../data:/var/lib/postgresql/data
     ports:
