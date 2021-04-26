@@ -1,0 +1,35 @@
+<mat-card>
+  <mat-card-content>
+    <form (submit)="onSubmit()" [formGroup]="loginForm">
+      <h1>Symposium login</h1>
+      <mat-form-field>
+        <input
+          type="text"
+          matInput
+          placeholder="Email"
+          formControlName="email"
+          required
+        />
+        <mat-error>Please provide a valid email address</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          type="password"
+          placeholder="Password"
+          formControlName="password"
+          required
+        />
+        <mat-error>Please provide your password</mat-error>
+      </mat-form-field>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" [disabled]="isValid()">Login</button>
+        <a mat-flat-button routerLink="/register">or Register</a>
+      </mat-card-actions>
+      <mat-card-actions>
+        <a class="forgot-password" [routerLink]="['/forgot-password']">Forgot password?</a>
+      </mat-card-actions>
+
+    </form>
+  </mat-card-content>
+</mat-card>
