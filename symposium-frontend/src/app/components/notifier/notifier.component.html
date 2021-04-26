@@ -1,0 +1,9 @@
+<div class="notifier-container">
+  <!-- <div>{{ data.type | titlecase }}</div> -->
+  <span>
+    {{ data.message }}
+  </span>
+  <span>
+    <button mat-stroked-button (click)="snackBarRef.dismiss()">{{ data.buttonText }}</button>
+  </span>
+</div>
