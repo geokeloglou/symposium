@@ -1,0 +1,33 @@
+<mat-card>
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <h1>Symposium registration</h1>
+    <mat-error *ngIf="loginInvalid">The passwords does not match</mat-error>
+    <mat-form-field>
+      <input type="email" matInput placeholder="Email" formControlName="email" required/>
+      <mat-error>Please provide a valid email address</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input type="text" matInput placeholder="Firstname" formControlName="firstname" required/>
+      <mat-error>Please provide a firstname</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input type="text" matInput placeholder="Lastname" formControlName="lastname" required/>
+      <mat-error>Please provide a lastname</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="password" placeholder="Password" formControlName="password" required/>
+      <mat-error>Please provide a strong password (>= 8 chars, letter, number & [!@#$%^&*])</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="password" placeholder="Confirm password" formControlName="confirmPassword" required/>
+      <mat-error>Please provide a valid confirm password</mat-error>
+    </mat-form-field>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" [disabled]="isValid()">Register</button>
+      <a mat-flat-button [routerLink]="['/login']">or Login</a>
+    </mat-card-actions>
+    <mat-card-actions>
+      <a class="forgot-password" routerLink="/forgot-password">Forgot password?</a>
+    </mat-card-actions>
+  </form>
+</mat-card>
