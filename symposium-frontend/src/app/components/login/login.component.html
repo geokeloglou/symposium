@@ -2,24 +2,29 @@
   <mat-card-content>
     <form (submit)="onSubmit()" [formGroup]="loginForm">
       <h1>Symposium login</h1>
-      <mat-form-field>
+      <mat-form-field >
         <input
           type="text"
           matInput
-          placeholder="Email"
           formControlName="email"
+          placeholder="Email"
           required
         />
         <mat-error>Please provide a valid email address</mat-error>
       </mat-form-field>
       <mat-form-field>
         <input
-          matInput
           type="password"
-          placeholder="Password"
+          matInput
           formControlName="password"
+          placeholder="Password"
           required
+          [type]="hide ? 'password' : 'text'"
         />
+        <a mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+           [attr.aria-pressed]="hide" [disableRipple]="true">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </a>
         <mat-error>Please provide your password</mat-error>
       </mat-form-field>
       <mat-card-actions>
@@ -29,7 +34,6 @@
       <mat-card-actions>
         <a class="forgot-password" [routerLink]="['/forgot-password']">Forgot password?</a>
       </mat-card-actions>
-
     </form>
   </mat-card-content>
 </mat-card>
