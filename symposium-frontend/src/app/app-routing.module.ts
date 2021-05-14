@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { MainComponent } from './components/main/main.component';
-import { HomeComponent } from './views/home/home.component';
+import { HomeContainerComponent } from './views/home-container/home-container.component';
 import { LoginViewComponent } from './views/authentication-views/login-view/login-view.component';
 import { RegisterViewComponent } from './views/authentication-views/register-view/register-view.component';
 import { ForgotPasswordViewComponent } from './views/authentication-views/forgot-password-view/forgot-password-view.component';
@@ -19,8 +19,8 @@ const routes: Routes = [
       },
       {
         path: 'home',
-        component: HomeComponent
-      }
+        component: HomeContainerComponent
+      },
     ]
   },
   {

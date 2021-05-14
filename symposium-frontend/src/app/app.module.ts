@@ -1,6 +1,6 @@
 import { AppComponent } from './app.component';
 import { FeedComponent } from './components/feed/feed.component';
-import { HomeComponent } from './views/home/home.component';
+import { HomeContainerComponent } from './views/home-container/home-container.component';
 import { MainComponent } from './components/main/main.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { NavComponent } from './components/nav/nav.component';
@@ -46,7 +46,7 @@ export function tokenGetter(): string | null {
   declarations: [
     AppComponent,
     FeedComponent,
-    HomeComponent,
+    HomeContainerComponent,
     MainComponent,
     ToolbarComponent,
     NavComponent,
