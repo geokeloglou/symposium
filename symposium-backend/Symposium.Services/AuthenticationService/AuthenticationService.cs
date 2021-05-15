@@ -20,6 +20,7 @@ namespace Symposium.Services.AuthenticationService
     public interface IUserAuthenticationService
     {
         Task<ServiceResponse<Guid>> Register(RegisterUserDto request);
+        Task<ServiceResponse<string>> Login(LoginUserDto request);
     }
 
     public class UserAuthenticationService : IUserAuthenticationService
@@ -66,7 +67,7 @@ namespace Symposium.Services.AuthenticationService
             if (await _context.Users.AnyAsync(u => u.Email == user.Email))
             {
                 response.Success = false;
-                response.Message = "Incorrect credentials."; // User already exists.
+                response.Message = "Email exists.";
                 return response;
             }
 
@@ -78,7 +79,7 @@ namespace Symposium.Services.AuthenticationService
             {
                 response.Success = false;
                 response.Message = "Your password does not match the valid criteria" +
-                                   "(>= 8 chars, one letter, one number & one (!@#$%^&*)!)";
+                                   "(>= 8 chars, one letter, one number & one (!@#$%^&*)!).";
                 return response;
             }
 
@@ -104,6 +105,35 @@ namespace Symposium.Services.AuthenticationService
 
             return response;
         }
+
+        public async Task<ServiceResponse<string>> Login(LoginUserDto request)
+        {
+            var response = new ServiceResponse<string>();
+            var user = await _context.Users.FirstOrDefaultAsync(x => 
+                x.Email.ToLower().Equals(request.Email.ToLower()));
+            if (user == null)
+            {
+                response.Success = false;
+                response.Message = "Incorrect credentials."; // User not found.
+            }
+            else if (!VerifyPasswordHash(request.Password, user.PasswordHash, user.PasswordSalt))
+            {
+                response.Success = false;
+                response.Message = "Incorrect credentials."; // Wrong password.
+            }
+            else
+            {
+                user.LastLogin = DateTimeOffset.Now;
+                
+                await _context.SaveChangesAsync(); 
+                
+                response.Data = CreateToken(user);
+                response.Message = "Successfully logged in.";
+            }
+
+            return response;
+        }
+
 
         private string CreateToken(User user)
         {
