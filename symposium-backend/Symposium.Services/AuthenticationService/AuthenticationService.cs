@@ -87,7 +87,7 @@ namespace Symposium.Services.AuthenticationService
                 return response;
             }
 
-            CreatePassHash(user.Password, out byte[] passwordHash, out byte[] passwordSalt);
+            PasswordUtils.CreatePassHash(user.Password, out byte[] passwordHash, out byte[] passwordSalt);
             var newUser = new User
             {
                 Email = user.Email,
@@ -120,7 +120,7 @@ namespace Symposium.Services.AuthenticationService
                 response.Success = false;
                 response.Message = "User not found.";
             }
-            else if (!VerifyPasswordHash(request.Password, user.PasswordHash, user.PasswordSalt))
+            else if (!PasswordUtils.VerifyPasswordHash(request.Password, user.PasswordHash, user.PasswordSalt))
             {
                 response.Success = false;
                 response.Message = "Incorrect credentials."; // Wrong password.
@@ -188,7 +188,7 @@ namespace Symposium.Services.AuthenticationService
                     return response;
                 }
 
-                CreatePassHash(request.Password, out byte[] passwordHash, out byte[] passwordSalt);
+                PasswordUtils.CreatePassHash(request.Password, out byte[] passwordHash, out byte[] passwordSalt);
                 user.PasswordHash = passwordHash;
                 user.PasswordSalt = passwordSalt;
                 user.ResetPasswordToken = null;
@@ -232,28 +232,6 @@ namespace Symposium.Services.AuthenticationService
             SecurityToken token = tokenHandler.CreateToken(tokenDescriptor);
 
             return tokenHandler.WriteToken(token);
-        }
-
-        private void CreatePassHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
-        {
-            using var hmac = new System.Security.Cryptography.HMACSHA512();
-            passwordSalt = hmac.Key;
-            passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-        }
-
-        private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
-        {
-            using var hmac = new System.Security.Cryptography.HMACSHA512(passwordSalt);
-            var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-            for (int i = 0; i < computedHash.Length; i++)
-            {
-                if (computedHash[i] != passwordHash[i])
-                {
-                    return false;
-                }
-            }
-
-            return true;
         }
     }
 }
