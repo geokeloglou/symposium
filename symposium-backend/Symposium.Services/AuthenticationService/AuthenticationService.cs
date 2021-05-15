@@ -83,7 +83,7 @@ namespace Symposium.Services.AuthenticationService
             {
                 response.Success = false;
                 response.Message = "Your password does not match the valid criteria " +
-                                   "(>= 8 chars, one letter, one number & one (!@#$%^&*)!).";
+                                   "(>= 8 chars, one letter, one number and one (!@#$%^&*)!).";
                 return response;
             }
 
