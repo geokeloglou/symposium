@@ -114,7 +114,7 @@ namespace Symposium.Services.AuthenticationService
             if (user == null)
             {
                 response.Success = false;
-                response.Message = "Incorrect credentials."; // User not found.
+                response.Message = "User not found."; 
             }
             else if (!VerifyPasswordHash(request.Password, user.PasswordHash, user.PasswordSalt))
             {
