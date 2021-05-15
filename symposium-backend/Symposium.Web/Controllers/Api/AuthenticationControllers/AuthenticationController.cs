@@ -40,5 +40,29 @@ namespace Symposium.Web.Controllers.Api.AuthenticationControllers
         
             return Ok(response);
         }
+        
+        [HttpPost("forgot")]
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordDto request)
+        {
+            var response = await _userAuthenticationService.ForgotPassword(request);
+            if (!response.Success)
+            {
+                return BadRequest(response);
+            }
+        
+            return Ok(response);
+        }
+        
+        [HttpPost("reset")]
+        public async Task<IActionResult> ResetPassword(ResetPasswordDto request)
+        {
+            var response = await _userAuthenticationService.ResetPassword(request);
+            if (!response.Success)
+            {
+                return BadRequest(response);
+            }
+        
+            return Ok(response);
+        }
     }
 }

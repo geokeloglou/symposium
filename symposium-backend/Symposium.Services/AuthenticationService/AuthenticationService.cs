@@ -2,9 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
-using System.Net.Mail;
 using System.Security.Claims;
-using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -22,6 +20,8 @@ namespace Symposium.Services.AuthenticationService
     {
         Task<ServiceResponse<Guid>> Register(RegisterUserDto request);
         Task<ServiceResponse<string>> Login(LoginUserDto request);
+        Task<ServiceResponse<string>> ForgotPassword(ForgotPasswordDto request);
+        Task<ServiceResponse<string>> ResetPassword(ResetPasswordDto request);
     }
 
     public class UserAuthenticationService : IUserAuthenticationService
@@ -113,12 +113,12 @@ namespace Symposium.Services.AuthenticationService
         public async Task<ServiceResponse<string>> Login(LoginUserDto request)
         {
             var response = new ServiceResponse<string>();
-            var user = await _context.Users.FirstOrDefaultAsync(x => 
+            var user = await _context.Users.FirstOrDefaultAsync(x =>
                 x.Email.ToLower().Equals(request.Email.ToLower()));
             if (user == null)
             {
                 response.Success = false;
-                response.Message = "User not found."; 
+                response.Message = "User not found.";
             }
             else if (!VerifyPasswordHash(request.Password, user.PasswordHash, user.PasswordSalt))
             {
@@ -128,9 +128,9 @@ namespace Symposium.Services.AuthenticationService
             else
             {
                 user.LastLogin = DateTimeOffset.Now;
-                
-                await _context.SaveChangesAsync(); 
-                
+
+                await _context.SaveChangesAsync();
+
                 response.Data = CreateToken(user);
                 response.Message = "Successfully logged in.";
             }
@@ -188,23 +188,73 @@ namespace Symposium.Services.AuthenticationService
             return true;
         }
 
-        private string RandomString(int length)
+        public async Task<ServiceResponse<string>> ForgotPassword(ForgotPasswordDto request)
         {
-            const string valid = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-            StringBuilder res = new StringBuilder();
-            using (RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider())
+            var response = new ServiceResponse<string>();
+            var user = await _context.Users
+                .Where(u => u.Email == request.Email)
+                .FirstOrDefaultAsync();
+            if (user == null)
             {
-                byte[] uintBuffer = new byte[sizeof(uint)];
-
-                while (length-- > 0)
-                {
-                    rng.GetBytes(uintBuffer);
-                    uint num = BitConverter.ToUInt32(uintBuffer, 0);
-                    res.Append(valid[(int) (num % (uint) valid.Length)]);
-                }
+                response.Success = false;
+                return response;
             }
 
-            return res.ToString();
+            var token = StringUtils.RandomString(50);
+            var baseUrl = _configuration.GetSection("General:BaseUrl").Value;
+            var message = new Message(
+                new[] {$"{user.Email}"},
+                "Forgot password - Symposium",
+                "Hello, <br><br>" +
+                $"Press <a href={baseUrl}/reset-password?t={token}>here </a>" + "to reset your password. " +
+                "Valid for only 20 minutes.<br><br>" +
+                "If you did not forget your password, ignore this email.<br><br>" +
+                "Symposium team");
+
+            user.ResetPasswordToken = token;
+            user.ResetPasswordTokenDate = DateTimeOffset.Now.AddMinutes(20);
+
+            await _context.SaveChangesAsync();
+            await _emailSender.SendEmailAsync(message);
+
+            response.Message = "Check your email for information.";
+
+            return response;
+        }
+
+        public async Task<ServiceResponse<string>> ResetPassword(ResetPasswordDto request)
+        {
+            var response = new ServiceResponse<string>();
+            var user = await _context.Users
+                .FirstOrDefaultAsync(u => u.ResetPasswordToken.Equals(request.Token));
+
+            if (user != null)
+            {
+                if (DateTimeOffset.Now > user.ResetPasswordTokenDate)
+                {
+                    response.Success = false;
+                    response.Message = "Your token has been expired.";
+
+                    return response;
+                }
+
+                CreatePassHash(request.Password, out byte[] passwordHash, out byte[] passwordSalt);
+                user.PasswordHash = passwordHash;
+                user.PasswordSalt = passwordSalt;
+                user.ResetPasswordToken = null;
+                user.ResetPasswordTokenDate = null;
+
+                await _context.SaveChangesAsync();
+
+                response.Message = "Your new password has been set.";
+
+                return response;
+            }
+
+            response.Message = "Not valid token.";
+            response.Success = false;
+
+            return response;
         }
     }
 }
