@@ -13,6 +13,7 @@ using Microsoft.IdentityModel.Tokens;
 using Symposium.Data.Database;
 using Symposium.Data.Models;
 using Symposium.DTO.AuthenticationDto;
+using Symposium.Services.EmailService;
 using Symposium.Services.Utilities;
 
 namespace Symposium.Services.AuthenticationService
@@ -27,13 +28,16 @@ namespace Symposium.Services.AuthenticationService
     {
         private readonly SymposiumDbContext _context;
         private readonly IConfiguration _configuration;
+        private readonly IEmailSender _emailSender;
 
         public UserAuthenticationService(
             SymposiumDbContext context,
-            IConfiguration configuration)
+            IConfiguration configuration,
+            IEmailSender emailSender)
         {
             _context = context;
             _configuration = configuration;
+            _emailSender = emailSender;
         }
 
         public async Task<ServiceResponse<Guid>> Register(RegisterUserDto user)
