@@ -6,7 +6,7 @@ import { TokenService } from './token.service';
 import { BaseService } from './base.service';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
-import { CustomResponse } from '../models/http.interface';
+import { ApiResponse } from '../models/http.interface';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -24,27 +24,27 @@ export class AuthService extends BaseService {
     super();
   }
 
-  login(user: LoginRequest): Observable<CustomResponse> {
+  login(user: LoginRequest): Observable<ApiResponse> {
     return this.httpClient
-      .post<CustomResponse>(`${ this.baseUrl }/authentication/login`, user)
+      .post<ApiResponse>(`${ this.baseUrl }/authentication/login`, user)
       .pipe(
-        tap((response: CustomResponse) => this.doLoginUser(response)),
+        tap((response: ApiResponse) => this.doLoginUser(response)),
         catchError((error) => this.handleError(error))
       );
   }
 
-  register(user: any): Observable<CustomResponse> {
+  register(user: any): Observable<ApiResponse> {
     return this.httpClient
-      .post<CustomResponse>(`${ this.baseUrl }/authentication/register`, user)
+      .post<ApiResponse>(`${ this.baseUrl }/authentication/register`, user)
       .pipe(
         tap(() => this.router.navigate(['login'])),
         catchError((error) => this.handleError(error))
       );
   }
 
-  forgotPassword(email: string): Observable<boolean | CustomResponse> {
+  forgotPassword(email: string): Observable<boolean | ApiResponse> {
     return this.httpClient
-      .post<CustomResponse>(
+      .post<ApiResponse>(
         `${ this.baseUrl }/authentication/forgot-password`,
         email
       )
@@ -54,9 +54,9 @@ export class AuthService extends BaseService {
       );
   }
 
-  resetPassword(body: { token: string; password: string }): Observable<CustomResponse> {
+  resetPassword(body: { token: string; password: string }): Observable<ApiResponse> {
     return this.httpClient
-      .post<CustomResponse>(
+      .post<ApiResponse>(
         `${ this.baseUrl }/authentication/reset-password`,
         body
       )
@@ -82,8 +82,8 @@ export class AuthService extends BaseService {
     this.removeJwtToken();
   }
 
-  private doLoginUser(response: CustomResponse): void {
-    this.storeToken(response.data.toString());
+  private doLoginUser(response: ApiResponse): void {
+    this.storeToken(response.data!.toString());
   }
 
   private storeToken(token: string): void {

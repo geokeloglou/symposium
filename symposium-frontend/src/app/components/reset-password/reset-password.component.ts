@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { CustomResponse } from '../../models/http.interface';
+import { ApiResponse } from '../../models/http.interface';
 import { NotifierService } from '../../services/notifier.service';
 
 @Component({
@@ -47,7 +47,7 @@ export class ResetPasswordComponent implements OnInit {
       password: this.resetPasswordForm.value.password,
     };
     this.authService.resetPassword(body).subscribe(
-      (response: CustomResponse) => {
+      (response: ApiResponse) => {
         this.resetForm(this.resetPasswordForm);
         this.notifierService.showNotification(
           'Your password has been successfully reset.',

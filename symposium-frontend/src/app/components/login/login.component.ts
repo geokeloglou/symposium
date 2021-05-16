@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CustomResponse } from '../../models/http.interface';
+import { ApiResponse } from '../../models/http.interface';
 import { NotifierService } from '../../services/notifier.service';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit(): void {
     this.authService.login(this.loginForm.value).subscribe(
-      (response: CustomResponse) => {
+      (response: ApiResponse) => {
         this.router.navigate(['/']);
         this.notifierService.showNotification(
           'Logged in successfully.',

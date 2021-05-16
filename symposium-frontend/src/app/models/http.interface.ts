@@ -1,5 +1,5 @@
-export interface CustomResponse {
-  data: any[];
+export interface ApiResponse  {
+  data?: any[] | null;
   message?: string;
-  success: string;
+  success: boolean;
 }

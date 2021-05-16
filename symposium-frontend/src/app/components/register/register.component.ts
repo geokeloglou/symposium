@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { NotifierService } from '../../services/notifier.service';
-import { CustomResponse } from '../../models/http.interface';
+import { ApiResponse } from '../../models/http.interface';
 
 @Component({
   selector: 'app-register',
@@ -44,7 +44,7 @@ export class RegisterComponent implements OnInit {
 
     this.loginInvalid = false;
     this.authService.register(this.registerForm.value).subscribe(
-      (response: CustomResponse) => {
+      (response: ApiResponse) => {
         this.resetForm(this.registerForm);
         this.notifierService.showNotification(
           'Registration has been made.',
