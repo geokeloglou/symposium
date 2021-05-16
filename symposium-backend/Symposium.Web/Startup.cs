@@ -76,6 +76,8 @@ namespace Symposium.Web
             // app.UseHttpsRedirection();
 
             app.UseRouting();
+            
+            app.UseCors("AllowAll");
 
             app.UseAuthorization();
 
