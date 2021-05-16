@@ -8,6 +8,12 @@ import { PostComponent } from './components/post/post.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { NotifierComponent } from './components/notifier/notifier.component';
+import { LoginViewComponent } from './views/authentication-views/login-view/login-view.component';
+import { RegisterViewComponent } from './views/authentication-views/register-view/register-view.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { ForgotPasswordViewComponent } from './views/authentication-views/forgot-password-view/forgot-password-view.component';
+import { ResetPasswordViewComponent } from './views/authentication-views/reset-password-view/reset-password-view.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
@@ -24,23 +30,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
-import { TokenInterceptor } from './helpers/token.interceptor';
+import { TokenInterceptor } from './interceptors/token.interceptor';
 
 import { AuthService } from './services/auth.service';
 import { TokenService } from './services/token.service';
 
 import { AuthGuard } from './guards/auth.guard';
 import { JwtModule } from '@auth0/angular-jwt';
-import { LoginViewComponent } from './views/authentication-views/login-view/login-view.component';
-import { RegisterViewComponent } from './views/authentication-views/register-view/register-view.component';
-import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
-import { ForgotPasswordViewComponent } from './views/authentication-views/forgot-password-view/forgot-password-view.component';
-import { ResetPasswordViewComponent } from './views/authentication-views/reset-password-view/reset-password-view.component';
-import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 
-export function tokenGetter(): string | null {
-  return localStorage.getItem('token');
-}
 
 @NgModule({
   declarations: [
@@ -78,7 +75,9 @@ export function tokenGetter(): string | null {
     MatSnackBarModule,
     JwtModule.forRoot({
       config: {
-        tokenGetter,
+        tokenGetter: () => {
+          return localStorage.getItem('token');
+        },
         allowedDomains: ['http://localhost:4200/'],
         disallowedRoutes: [''],
       },
