@@ -32,8 +32,7 @@ export class TokenInterceptor implements HttpInterceptor {
     });
 
     return next.handle(request).pipe(
-      tap(
-        () => {
+      tap(() => {
         },
         (err: any) => {
           if (err instanceof HttpErrorResponse) {
@@ -41,12 +40,12 @@ export class TokenInterceptor implements HttpInterceptor {
               return;
             }
             this.notifierService.showNotification(
-              'Παρακαλώ ξανασυνδεθείτε.',
+              'You are not logged in.',
               'OK',
               'error'
             );
             this.auth.removeJwtToken();
-            this.router.navigate(['login']);
+            this.router.navigate(['/login']);
           }
         }
       )
