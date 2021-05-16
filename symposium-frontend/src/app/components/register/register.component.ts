@@ -25,7 +25,7 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.authService.isLoggedIn()) {
-      this.router.navigate(['announcements']);
+      this.router.parseUrl('/home');
     }
     this.registerForm = this.fb.group({
       email: ['', Validators.compose([Validators.email, Validators.required])],
@@ -47,7 +47,7 @@ export class RegisterComponent implements OnInit {
       (response: ApiResponse) => {
         this.resetForm(this.registerForm);
         this.notifierService.showNotification(
-          'Registration has been made.',
+          'Registration successful.',
           'OK',
           'success'
         );
@@ -55,7 +55,7 @@ export class RegisterComponent implements OnInit {
       (error) => {
         this.resetForm(this.registerForm);
         this.notifierService.showNotification(
-          'Failed to register.',
+          'Registration failed.',
           'OK',
           'error'
         );
