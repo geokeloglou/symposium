@@ -50,7 +50,7 @@ export class ResetPasswordComponent implements OnInit {
       (response: ApiResponse) => {
         this.resetForm(this.resetPasswordForm);
         this.notifierService.showNotification(
-          'Your password has been successfully reset.',
+          'Password has been reset successfully.',
           'OK',
           'success'
         );
@@ -58,7 +58,7 @@ export class ResetPasswordComponent implements OnInit {
       (error) => {
         this.resetForm(this.resetPasswordForm);
         this.notifierService.showNotification(
-          'Reset password has been failed.',
+          'Password reset has been failed.',
           'OK',
           'error'
         );
