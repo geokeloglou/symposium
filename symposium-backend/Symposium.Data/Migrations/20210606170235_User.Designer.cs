@@ -10,7 +10,7 @@ using Symposium.Data.Database;
 namespace Symposium.Data.Migrations
 {
     [DbContext(typeof(SymposiumDbContext))]
-    [Migration("20210606163336_User")]
+    [Migration("20210606170235_User")]
     partial class User
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,6 +33,9 @@ namespace Symposium.Data.Migrations
 
                     b.Property<string>("Firstname")
                         .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ImageUrl")
                         .HasColumnType("text");
 
                     b.Property<string>("Intro")

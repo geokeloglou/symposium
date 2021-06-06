@@ -33,6 +33,9 @@ namespace Symposium.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("text");
+
                     b.Property<string>("Intro")
                         .HasColumnType("text");
 

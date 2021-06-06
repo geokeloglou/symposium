@@ -22,7 +22,8 @@ namespace Symposium.Data.Migrations
                     ResetPasswordToken = table.Column<string>(nullable: true),
                     ResetPasswordTokenDate = table.Column<DateTimeOffset>(nullable: true),
                     LastLogin = table.Column<DateTimeOffset>(nullable: true),
-                    Intro = table.Column<string>(nullable: true)
+                    Intro = table.Column<string>(nullable: true),
+                    ImageUrl = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

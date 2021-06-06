@@ -37,5 +37,7 @@ namespace Symposium.Data.Models
         public DateTimeOffset? LastLogin { get; set; }
 
         public string? Intro { get; set; }
+        
+        public string? ImageUrl { get; set; }
     }
 }
