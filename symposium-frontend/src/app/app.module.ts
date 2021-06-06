@@ -38,6 +38,8 @@ import { TokenService } from './services/token.service';
 
 import { AuthGuard } from './guards/auth.guard';
 import { JwtModule } from '@auth0/angular-jwt';
+import { ConfirmDialogModule } from './shared/confirm-dialog/confirm-dialog.module';
+import { ConfirmDialogService } from './shared/confirm-dialog/confirm-dialog.service';
 
 
 @NgModule({
@@ -84,6 +86,7 @@ import { JwtModule } from '@auth0/angular-jwt';
       },
     }),
     MatDividerModule,
+    ConfirmDialogModule
   ],
   providers: [
     AuthService,
