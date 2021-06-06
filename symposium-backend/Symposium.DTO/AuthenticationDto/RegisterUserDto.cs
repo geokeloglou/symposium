@@ -5,6 +5,9 @@ namespace Symposium.DTO.AuthenticationDto
     public class RegisterUserDto
     {
         [Required]
+        public string Username { get; set; }
+        
+        [Required]
         public string Firstname { get; set; }
         
         [Required]
