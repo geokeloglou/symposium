@@ -90,6 +90,7 @@ namespace Symposium.Services.AuthenticationService
             PasswordUtils.CreatePassHash(user.Password, out byte[] passwordHash, out byte[] passwordSalt);
             var newUser = new User
             {
+                Username = user.Username,
                 Email = user.Email,
                 Firstname = user.Firstname,
                 Lastname = user.Lastname,
