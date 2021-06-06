@@ -12,6 +12,7 @@ namespace Symposium.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
+                    Username = table.Column<string>(nullable: false),
                     Firstname = table.Column<string>(nullable: false),
                     Lastname = table.Column<string>(nullable: false),
                     Email = table.Column<string>(nullable: false),

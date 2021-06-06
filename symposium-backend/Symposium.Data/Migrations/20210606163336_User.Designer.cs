@@ -10,7 +10,7 @@ using Symposium.Data.Database;
 namespace Symposium.Data.Migrations
 {
     [DbContext(typeof(SymposiumDbContext))]
-    [Migration("20210514220137_User")]
+    [Migration("20210606163336_User")]
     partial class User
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -61,6 +61,10 @@ namespace Symposium.Data.Migrations
 
                     b.Property<DateTimeOffset?>("ResetPasswordTokenDate")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 

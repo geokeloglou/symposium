@@ -60,6 +60,10 @@ namespace Symposium.Data.Migrations
                     b.Property<DateTimeOffset?>("ResetPasswordTokenDate")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
 
                     b.ToTable("User");
