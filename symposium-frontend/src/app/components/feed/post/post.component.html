@@ -1,0 +1,20 @@
+<div class="post">
+  <div class="post-body">
+    <img class="post-body-avatar" src="../../../../favicon.ico">
+    <div class="post-body-content">
+      <header class="post-body-content-header">
+        <strong>{{ firstname }} {{ lastname }}</strong>
+        <span class="post-body-content-header-space">@{{ username }}</span>
+        <span class="post-body-content-header-space"></span>
+        <time>{{ date }}</time>
+      </header>
+      <mat-divider></mat-divider>
+      <p class="post-body-content-text">{{ text }}</p>
+      <button mat-icon-button (click)="like.emit()">
+        <mat-icon>favorite_border</mat-icon>
+      </button>
+      <div class="post-body-content-like">{{ likes }}</div>
+    </div>
+  </div>
+</div>
+<mat-divider></mat-divider>
