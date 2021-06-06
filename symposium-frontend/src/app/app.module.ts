@@ -4,7 +4,7 @@ import { HomeContainerComponent } from './views/home-container/home-container.co
 import { MainComponent } from './components/main/main.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { NavComponent } from './components/nav/nav.component';
-import { PostComponent } from './components/post/post.component';
+import { PostComponent } from './components/feed/post/post.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { NotifierComponent } from './components/notifier/notifier.component';
@@ -29,6 +29,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDividerModule } from '@angular/material/divider';
 
 import { TokenInterceptor } from './interceptors/token.interceptor';
 
@@ -82,6 +83,7 @@ import { JwtModule } from '@auth0/angular-jwt';
         disallowedRoutes: [''],
       },
     }),
+    MatDividerModule,
   ],
   providers: [
     AuthService,
