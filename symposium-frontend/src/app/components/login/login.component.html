@@ -1,7 +1,7 @@
 <mat-card>
   <mat-card-content>
     <form (submit)="onSubmit()" [formGroup]="loginForm">
-      <h1>Symposium login</h1>
+      <h1>Login</h1>
       <mat-form-field>
         <input
           type="text"
@@ -23,7 +23,7 @@
         />
         <a mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
            [attr.aria-pressed]="hide" [disableRipple]="true">
-          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
         </a>
         <mat-error>Please provide your password</mat-error>
       </mat-form-field>
