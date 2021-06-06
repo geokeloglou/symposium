@@ -12,8 +12,8 @@ import { ApiResponse } from '../../models/http.interface';
 })
 export class RegisterComponent implements OnInit {
 
-  registerForm!: FormGroup;
-  loginInvalid!: boolean;
+  registerForm: FormGroup;
+  loginInvalid: boolean;
 
   constructor(
     private fb: FormBuilder,
@@ -29,6 +29,7 @@ export class RegisterComponent implements OnInit {
     }
     this.registerForm = this.fb.group({
       email: ['', Validators.compose([Validators.email, Validators.required])],
+      username: ['', Validators.required],
       firstname: ['', Validators.required],
       lastname: ['', Validators.required],
       password: ['', Validators.required],

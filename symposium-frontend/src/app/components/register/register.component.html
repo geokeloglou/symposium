@@ -1,10 +1,14 @@
 <mat-card>
   <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-    <h1>Symposium registration</h1>
+    <h1>Registration</h1>
     <mat-error *ngIf="loginInvalid">The passwords does not match</mat-error>
     <mat-form-field>
       <input type="email" matInput placeholder="Email" formControlName="email" required/>
       <mat-error>Please provide a valid email address</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input type="text" matInput placeholder="Username" formControlName="username" required/>
+      <mat-error>Please provide a valid username</mat-error>
     </mat-form-field>
     <mat-form-field>
       <input type="text" matInput placeholder="Firstname" formControlName="firstname" required/>
