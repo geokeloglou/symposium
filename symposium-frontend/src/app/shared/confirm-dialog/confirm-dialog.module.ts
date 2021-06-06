@@ -8,7 +8,12 @@ import { MatIconModule } from '@angular/material/icon';
 
 
 @NgModule({
-  imports: [CommonModule, MatDialogModule, MatButtonModule, MatIconModule],
+  imports: [
+    CommonModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatIconModule
+  ],
   declarations: [ConfirmDialogComponent],
   exports: [ConfirmDialogComponent],
   entryComponents: [ConfirmDialogComponent],

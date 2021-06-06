@@ -12,7 +12,6 @@ export class ConfirmDialogService {
   constructor(private dialog: MatDialog) {
   }
 
-
   public open(options: any): void {
     this.dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: {
