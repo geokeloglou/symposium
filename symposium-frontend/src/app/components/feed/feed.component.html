@@ -1,8 +1,11 @@
 <div class="feed-container">
   <div class="feed-container-tools">
     <img class="feed-container-tools-profile-img" src="favicon.ico">
-    <button mat-icon-button matTooltip="New post" matTooltipPosition="right"><mat-icon>add</mat-icon></button>
+    <button mat-icon-button matTooltip="New post" matTooltipPosition="right">
+      <mat-icon>add</mat-icon>
+    </button>
   </div>
   <mat-divider></mat-divider>
-  <app-post></app-post>
+  <app-post *ngFor="let post of (postSandbox.posts$ | async)" [firstname]="post.firstname" [lastname]="post.lastname"
+            [username]="post.username" [date]="post.createdDate" [text]="post.text" [likes]="post.likes"></app-post>
 </div>
