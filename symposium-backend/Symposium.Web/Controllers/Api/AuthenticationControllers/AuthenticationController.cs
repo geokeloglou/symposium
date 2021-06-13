@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Symposium.DTO.AuthenticationDto;
-using Symposium.Services.AuthenticationService;
+using Symposium.Services.UserAuthenticationService;
 
 namespace Symposium.Web.Controllers.Api.AuthenticationControllers
 {
