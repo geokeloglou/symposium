@@ -14,7 +14,7 @@ import { Observable } from 'rxjs';
 })
 export class AuthService extends BaseService {
 
-  baseUrl = environment.baseUrl;
+  apiUrl = environment.apiUrl;
 
   constructor(
     private httpClient: HttpClient,
@@ -26,7 +26,7 @@ export class AuthService extends BaseService {
 
   login(user: LoginRequest): Observable<ApiResponse> {
     return this.httpClient
-      .post<ApiResponse>(`${ this.baseUrl }/api/auth/login`, user)
+      .post<ApiResponse>(`${ this.apiUrl }/auth/login`, user)
       .pipe(
         tap((response: ApiResponse) => this.doLoginUser(response)),
         catchError((error) => this.handleError(error))
@@ -35,7 +35,7 @@ export class AuthService extends BaseService {
 
   register(user: any): Observable<ApiResponse> {
     return this.httpClient
-      .post<ApiResponse>(`${ this.baseUrl }/api/auth/register`, user)
+      .post<ApiResponse>(`${ this.apiUrl }/auth/register`, user)
       .pipe(
         tap(() => this.router.navigate(['login'])),
         catchError((error) => this.handleError(error))
@@ -45,7 +45,7 @@ export class AuthService extends BaseService {
   forgotPassword(email: string): Observable<boolean | ApiResponse> {
     return this.httpClient
       .post<ApiResponse>(
-        `${ this.baseUrl }/api/auth/forgot`,
+        `${ this.apiUrl }/auth/forgot`,
         email
       )
       .pipe(
@@ -56,7 +56,7 @@ export class AuthService extends BaseService {
 
   resetPassword(body: { token: string; password: string }): Observable<ApiResponse> {
     return this.httpClient
-      .post<ApiResponse>(`${ this.baseUrl }/api/auth/reset`, body)
+      .post<ApiResponse>(`${ this.apiUrl }/auth/reset`, body)
       .pipe(
         tap(() => this.router.navigate(['login'])),
         catchError((error) => this.handleError(error)));
