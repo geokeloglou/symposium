@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Symposium.Data.Models
 {
@@ -39,5 +41,8 @@ namespace Symposium.Data.Models
         public string? Intro { get; set; }
         
         public string? ImageUrl { get; set; }
+        
+        [ForeignKey("UserId")]
+        public ICollection<Post> Posts { get; set; }
     }
 }
