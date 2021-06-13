@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Symposium.Data.Database;
@@ -9,9 +10,10 @@ using Symposium.Data.Database;
 namespace Symposium.Data.Migrations
 {
     [DbContext(typeof(SymposiumDbContext))]
-    partial class SymposiumDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210606173621_Post")]
+    partial class Post
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
