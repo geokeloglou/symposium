@@ -40,6 +40,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { JwtModule } from '@auth0/angular-jwt';
 import { ConfirmDialogModule } from './shared/confirm-dialog/confirm-dialog.module';
 import { ConfirmDialogService } from './shared/confirm-dialog/confirm-dialog.service';
+import { PostService } from './services/post.service';
 
 
 @NgModule({
@@ -92,6 +93,7 @@ import { ConfirmDialogService } from './shared/confirm-dialog/confirm-dialog.ser
     AuthService,
     AuthGuard,
     TokenService,
+    PostService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
