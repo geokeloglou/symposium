@@ -9,8 +9,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Symposium.Data.Database;
-using Symposium.Services.AuthenticationService;
+using Symposium.Services.UserAuthenticationService;
 using Symposium.Services.EmailService;
+using Symposium.Services.PostService;
 using Symposium.Services.Utilities;
 
 namespace Symposium.Web
@@ -45,7 +46,13 @@ namespace Symposium.Web
             services.AddPgConnection(Configuration.GetSection("ConnectionStrings:DefaultConnection").Value, "public");
             services.AddCors(options => options.AddPolicy("AllowAll", p => p.AllowAnyOrigin()
                 .AllowAnyMethod()
-                .AllowAnyHeader())); 
+                .AllowAnyHeader()));
+            services.AddControllers();
+            services.AddScoped<IEmailSender, EmailSender>();
+            services.AddScoped<IUserAuthenticationService, UserAuthenticationService>();
+            services.AddScoped<IPostService, PostService>();
+            services.AddSingleton(Configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>());
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
@@ -58,11 +65,6 @@ namespace Symposium.Web
                         ValidateAudience = false
                     };
                 });
-            services.AddControllers();
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddSingleton(Configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>());
-            services.AddScoped<IEmailSender, EmailSender>();;
-            services.AddScoped<IUserAuthenticationService, UserAuthenticationService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -78,6 +80,8 @@ namespace Symposium.Web
             app.UseRouting();
             
             app.UseCors("AllowAll");
+            
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
