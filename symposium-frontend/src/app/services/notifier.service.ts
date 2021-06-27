@@ -11,7 +11,7 @@ export class NotifierService {
   }
 
   showNotification(
-    displayMessage: string,
+    displayMessage: string | undefined,
     buttonText: string,
     messageType: 'error' | 'success'
   ): void {
