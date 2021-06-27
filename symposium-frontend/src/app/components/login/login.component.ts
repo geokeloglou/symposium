@@ -34,19 +34,11 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.loginForm.value).subscribe(
       (response: ApiResponse) => {
         this.router.navigate(['/']);
-        this.notifierService.showNotification(
-          'Logged in successfully.',
-          'OK',
-          'success'
-        );
+        this.notifierService.showNotification('Logged in successfully.', 'OK', 'success');
       },
       (error: any) => {
         this.resetForm(this.loginForm);
-        this.notifierService.showNotification(
-          'Login failed.',
-          'OK',
-          'error'
-        );
+        this.notifierService.showNotification('Login failed.', 'OK', 'error');
       }
     );
   }
