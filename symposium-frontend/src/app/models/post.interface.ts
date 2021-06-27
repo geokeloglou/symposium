@@ -1,5 +1,10 @@
 import { Guid } from 'guid-typescript';
 
+export interface CreatePost {
+  text: string;
+  imageUrl?: string;
+}
+
 export interface Post {
   id: Guid;
   text: string;
