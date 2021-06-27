@@ -47,19 +47,11 @@ export class RegisterComponent implements OnInit {
     this.authService.register(this.registerForm.value).subscribe(
       (response: ApiResponse) => {
         this.resetForm(this.registerForm);
-        this.notifierService.showNotification(
-          'Registration successful.',
-          'OK',
-          'success'
-        );
+        this.notifierService.showNotification('Registration successful.', 'OK', 'success');
       },
       (error) => {
         this.resetForm(this.registerForm);
-        this.notifierService.showNotification(
-          'Registration failed.',
-          'OK',
-          'error'
-        );
+        this.notifierService.showNotification('Registration failed.', 'OK', 'error');
       }
     );
   }
