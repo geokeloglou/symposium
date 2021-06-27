@@ -39,11 +39,7 @@ export class TokenInterceptor implements HttpInterceptor {
             if (err.status !== 401) {
               return;
             }
-            this.notifierService.showNotification(
-              'You are not logged in.',
-              'OK',
-              'error'
-            );
+            this.notifierService.showNotification('You are not logged in.', 'OK', 'error');
             this.auth.removeJwtToken();
             this.router.navigate(['/login']);
           }
