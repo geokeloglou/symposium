@@ -17,17 +17,9 @@ export class NavComponent implements OnInit {
 
   logout(): void {
     this.authService.logout().then(() => {
-      this.notifierService.showNotification(
-        'Logged out successfully.',
-        'OK',
-        'success',
-      );
+      this.notifierService.showNotification('Logged out successfully.', 'OK', 'success');
     }).catch(() => {
-      this.notifierService.showNotification(
-        'Log out failed.',
-        'OK',
-        'error',
-      );
+      this.notifierService.showNotification('Log out failed.', 'OK', 'error');
     });
   }
 
