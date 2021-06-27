@@ -4,6 +4,7 @@ import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ApiResponse } from '../models/http.interface';
+import { CreatePost } from '../models/post.interface';
 
 @Injectable()
 export class PostService extends BaseService {
@@ -16,6 +17,10 @@ export class PostService extends BaseService {
 
   getAllPosts(): Observable<ApiResponse> {
     return this.httpClient.get<ApiResponse>(`${ this.apiUrl }/post/get-all`);
+  }
+
+  createPost(post: CreatePost): Observable<ApiResponse> {
+    return this.httpClient.post<ApiResponse>(`${ this.apiUrl }/post/create`, post);
   }
 
 }
