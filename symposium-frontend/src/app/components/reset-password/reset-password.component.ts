@@ -49,19 +49,11 @@ export class ResetPasswordComponent implements OnInit {
     this.authService.resetPassword(body).subscribe(
       (response: ApiResponse) => {
         this.resetForm(this.resetPasswordForm);
-        this.notifierService.showNotification(
-          'Password has been reset successfully.',
-          'OK',
-          'success'
-        );
+        this.notifierService.showNotification('Password has been reset successfully.', 'OK', 'success');
       },
       (error) => {
         this.resetForm(this.resetPasswordForm);
-        this.notifierService.showNotification(
-          'Password reset has been failed.',
-          'OK',
-          'error'
-        );
+        this.notifierService.showNotification('Password reset has been failed.', 'OK', 'error');
       }
     );
   }
