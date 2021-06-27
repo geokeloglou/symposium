@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PostSandbox } from './post.sandbox';
+import { PostSandbox } from './post/post.sandbox';
 
 @Component({
   selector: 'app-feed',
