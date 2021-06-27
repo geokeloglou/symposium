@@ -1,9 +1,9 @@
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { PostData } from '../../models/post.interface';
-import { PostService } from '../../services/post.service';
+import { PostData } from '../../../models/post.interface';
+import { PostService } from '../../../services/post.service';
 import { catchError, distinctUntilChanged, filter, map } from 'rxjs/operators';
-import { NotifierService } from '../../services/notifier.service';
-import { ApiResponse } from '../../models/http.interface';
+import { NotifierService } from '../../../services/notifier.service';
+import { ApiResponse } from '../../../models/http.interface';
 import { Injectable, OnDestroy } from '@angular/core';
 
 @Injectable()
