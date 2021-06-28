@@ -52,8 +52,8 @@ export class PostSandbox implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.getAllPostsSubscription.unsubscribe();
-    this.createPostSubscription.unsubscribe();
+    this.getAllPostsSubscription?.unsubscribe();
+    this.createPostSubscription?.unsubscribe();
     this._posts$.complete();
     this._posts$.next([]);
   }
