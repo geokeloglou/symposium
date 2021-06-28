@@ -26,6 +26,7 @@ export class PostSandbox implements OnDestroy {
   }
 
   private getAllPosts(): void {
+    this.getAllPostsSubscription?.unsubscribe();
     this.getAllPostsSubscription = this.postService.getAllPosts()
       .pipe(
         catchError((error: ApiResponse) => {
