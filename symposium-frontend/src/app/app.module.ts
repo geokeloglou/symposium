@@ -3,7 +3,7 @@ import { FeedComponent } from './components/feed/feed.component';
 import { HomeContainerComponent } from './views/home-container/home-container.component';
 import { MainComponent } from './components/main/main.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
-import { NavComponent } from './components/nav/nav.component';
+import { NavComponent } from './components/toolbar/nav/nav.component';
 import { PostComponent } from './components/feed/post/post.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
