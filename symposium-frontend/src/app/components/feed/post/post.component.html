@@ -1,22 +1,22 @@
 <div class="post">
   <div class="post-body">
-    <img class="post-body-avatar" src="../../../../favicon.ico">
+    <img class="post-body-avatar" src="{{ postImageUrl }}">
     <div class="post-body-content">
       <header class="post-body-content-header">
         <strong>{{ firstname }} {{ lastname }}</strong>
         <span class="post-body-content-header-space">@{{ username }}</span>
         <span class="post-body-content-header-space"></span>
         <time>{{ date | date: 'dd/MM/yyyy' }}</time>
+        <button mat-icon-button>
+          <mat-icon>more_horiz</mat-icon>
+        </button>
       </header>
       <mat-divider></mat-divider>
       <p class="post-body-content-text">{{ text }}</p>
       <button mat-icon-button (click)="like.emit()">
         <mat-icon>favorite_border</mat-icon>
       </button>
-      <button mat-icon-button>
-        <mat-icon>more_horiz</mat-icon>
-      </button>
-      <div class="post-body-content-likes">{{ likes }}</div>
+      <span class="post-body-content-likes">{{ likes }}</span>
     </div>
   </div>
 </div>
