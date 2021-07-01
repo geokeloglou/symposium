@@ -10,6 +10,7 @@ export class PostComponent {
   @Input() firstname: string;
   @Input() lastname: string;
   @Input() username: string;
+  @Input() postImageUrl: string;
   @Input() date: Date;
   @Input() text: string;
   @Input() likes: number;
