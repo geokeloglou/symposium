@@ -7,5 +7,6 @@
   </div>
   <mat-divider></mat-divider>
   <app-post *ngFor="let post of (postSandbox.posts$ | async)" [firstname]="post.firstname" [lastname]="post.lastname"
-            [username]="post.username" [date]="post.createdDate" [text]="post.text" [likes]="post.likes"></app-post>
+            [username]="post.username" [date]="post.createdDate" [text]="post.text" [likes]="post.likes"
+            [postImageUrl]="post.postImageUrl"></app-post>
 </div>
