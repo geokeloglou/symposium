@@ -13,7 +13,7 @@ import { NotifierService } from '../../services/notifier.service';
 })
 export class FeedComponent implements OnInit {
 
-  constructor(public postSandbox: PostSandbox, private dialog: MatDialog, private notifierService: NotifierService) {
+  constructor(public postSandbox: PostSandbox, private dialog: MatDialog) {
   }
 
   ngOnInit(): void {
