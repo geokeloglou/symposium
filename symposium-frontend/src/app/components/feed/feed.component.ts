@@ -4,8 +4,6 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AddPostDialogComponent } from './add-post-dialog/add-post-dialog.component';
 import { CreatePost } from '../../models/post.interface';
 import { NotifierService } from '../../services/notifier.service';
-import { ApiResponse } from '../../models/http.interface';
-import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-feed',
