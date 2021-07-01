@@ -3,7 +3,6 @@ import { PostSandbox } from './post/post.sandbox';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AddPostDialogComponent } from './add-post-dialog/add-post-dialog.component';
 import { CreatePost } from '../../models/post.interface';
-import { NotifierService } from '../../services/notifier.service';
 
 @Component({
   selector: 'app-feed',
