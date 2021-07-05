@@ -1,17 +1,21 @@
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { CreatePost, PostData } from '../../../models/post.interface';
+import { CreatePost, LikedPostData, PostData } from '../../../models/post.interface';
 import { PostService } from '../../../services/post.service';
 import { catchError, distinctUntilChanged, filter, map } from 'rxjs/operators';
 import { NotifierService } from '../../../services/notifier.service';
 import { ApiResponse } from '../../../models/http.interface';
 import { Injectable, OnDestroy } from '@angular/core';
+import { Guid } from 'guid-typescript';
 
 @Injectable()
 export class PostSandbox implements OnDestroy {
 
   private getAllPostsSubscription: Subscription;
-  private _posts$: BehaviorSubject<PostData[]> = new BehaviorSubject<PostData[]>([]);
+  private _posts$ = new BehaviorSubject<PostData[]>([]);
   private createPostSubscription: Subscription;
+  private likePostSubscription: Subscription;
+  private _likedPosts$ = new BehaviorSubject<LikedPostData[]>([]);
+  private getAllLikedPostsSubscription: Subscription;
 
   constructor(private postService: PostService, private notifierService: NotifierService) {
     this.init();
@@ -21,8 +25,13 @@ export class PostSandbox implements OnDestroy {
     return this._posts$;
   }
 
+  isPostLiked(id: Guid): boolean {
+    return this._likedPosts$.value.filter(lp => lp.postId === id).length > 0;
+  }
+
   protected init(): void {
     this.getAllPosts();
+    this.getAllLikedPosts();
   }
 
   private getAllPosts(): void {
@@ -51,10 +60,32 @@ export class PostSandbox implements OnDestroy {
       });
   }
 
+  likePost(postId: Guid): void {
+    this.likePostSubscription?.unsubscribe();
+    this.likePostSubscription = this.postService.likePost({ id: postId })
+      .subscribe(() => {
+        this.getAllPosts();
+        this.getAllLikedPosts();
+      });
+  }
+
+  getAllLikedPosts(): void {
+    this.getAllLikedPostsSubscription?.unsubscribe();
+    this.getAllLikedPostsSubscription = this.postService.getAllLikedPosts()
+      .subscribe((response: ApiResponse) => {
+        this._likedPosts$.next(response.data as LikedPostData[]);
+      });
+  }
+
   ngOnDestroy(): void {
     this.getAllPostsSubscription?.unsubscribe();
     this.createPostSubscription?.unsubscribe();
+    this.likePostSubscription?.unsubscribe();
+    this.getAllLikedPostsSubscription?.unsubscribe();
     this._posts$.complete();
+    this._likedPosts$.complete();
     this._posts$.next([]);
+    this._likedPosts$.next([]);
   }
+
 }
