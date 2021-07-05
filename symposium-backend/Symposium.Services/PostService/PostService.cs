@@ -20,6 +20,8 @@ namespace Symposium.Services.PostService
         Task<ServiceResponse<Guid>> CreatePost(CreatePostDto postDto);
         Task<ServiceResponse<List<Post>>> GetPosts();
         Task<ServiceResponse<List<GetAllPostsDto>>> GetAllPosts();
+        Task<ServiceResponse<Guid>> LikePost(LikePostDto postId);
+        Task<ServiceResponse<List<PostLikedBy>>> GetAllLikedPosts();
     }
     
     public class PostService : IPostService
@@ -108,6 +110,61 @@ namespace Symposium.Services.PostService
 
             response.Data = new List<GetAllPostsDto>(posts);
             response.Message = "All posts.";
+            
+            return response;
+        }
+
+        public async Task<ServiceResponse<Guid>> LikePost(LikePostDto likePostDto)
+        {
+            var response = new ServiceResponse<Guid>();
+            {
+                var userGuid = GetUserGuid();
+                var post = await _context.Posts.FirstOrDefaultAsync(p => p.Id == likePostDto.Id);
+                var likedPostByUser = await _context.PostsLikedBy.FirstOrDefaultAsync(psb =>
+                    psb.UserId == userGuid && 
+                    psb.PostId == likePostDto.Id);
+
+                if (likedPostByUser == null)
+                {
+                    var postLikedBy = new PostLikedBy
+                    {
+                        UserId = userGuid,
+                        PostId = likePostDto.Id,
+                        LikedDate = DateTimeOffset.Now
+                    };
+                
+                    post.Likes += 1;
+
+                    await _context.PostsLikedBy.AddAsync(postLikedBy);
+                    await _context.SaveChangesAsync();
+
+                    response.Data = likePostDto.Id;
+                    response.Message = "Post has been liked.";
+                }
+                else
+                {
+                    post.Likes -= 1;
+
+                    _context.PostsLikedBy.Remove(likedPostByUser);
+                    await _context.SaveChangesAsync();
+
+                    response.Data = likePostDto.Id;
+                    response.Message = "Like has been removed.";
+                }
+            }
+
+            return response;
+        }
+
+        public async Task<ServiceResponse<List<PostLikedBy>>> GetAllLikedPosts()
+        {
+            var response = new ServiceResponse<List<PostLikedBy>>();
+            var likedPosts = await _context.PostsLikedBy
+                .Where(glb => glb.UserId == GetUserGuid())
+                .ToListAsync();
+
+            response.Data = likedPosts;
+            response.Message = "All liked posts.";
             
             return response;
         }
