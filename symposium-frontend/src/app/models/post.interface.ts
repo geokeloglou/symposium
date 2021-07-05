@@ -5,6 +5,17 @@ export interface CreatePost {
   imageUrl?: string;
 }
 
+export interface LikePost {
+  id: Guid;
+}
+
+export interface LikedPostData {
+  id: Guid;
+  userId: Guid;
+  postId: Guid;
+  likedDate: Date;
+}
+
 export interface Post {
   id: Guid;
   text: string;
