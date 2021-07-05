@@ -14,6 +14,7 @@ export class PostComponent {
   @Input() date: Date;
   @Input() text: string;
   @Input() likes: number;
+  @Input() liked: boolean;
   @Output() like = new EventEmitter<void>();
 
   constructor() {
