@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Symposium.DTO.PostDto;
@@ -45,6 +46,30 @@ namespace Symposium.Web.Controllers.Api.PostControllers
         public async Task<IActionResult> GetAllPosts()
         {
             var response = await _postService.GetAllPosts();
+            if (!response.Success)
+            {
+                return NotFound(response);
+            }
+
+            return Ok(response);
+        }
+        
+        [HttpPost("like")]
+        public async Task<IActionResult> LikePost(LikePostDto likePostDto)
+        {
+            var response = await _postService.LikePost(likePostDto);
+            if (!response.Success)
+            {
+                return BadRequest(response);
+            }
+
+            return Ok(response);
+        }
+        
+        [HttpGet("liked/get-all")]
+        public async Task<IActionResult> GetAllLikedPosts()
+        {
+            var response = await _postService.GetAllLikedPosts();
             if (!response.Success)
             {
                 return NotFound(response);
