@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Symposium.Data.Models
 {
@@ -21,11 +23,14 @@ namespace Symposium.Data.Models
         public DateTimeOffset? UpdatedDate { get; set; }
         
         [Required]
-        public string Likes { get; set; }
+        public int Likes { get; set; }
         
         [Required]
         public bool Archived { get; set; }
         
         public string? ImageUrl { get; set; }
+        
+        [ForeignKey("PostId")]
+        public ICollection<PostLikedBy> PostLikes { get; set; }
     }
 }
