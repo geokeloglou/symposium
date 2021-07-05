@@ -11,6 +11,7 @@ namespace Symposium.Data.Database
 
         public DbSet<User> Users { get; set; }
         public DbSet<Post> Posts { get; set; }
+        public DbSet<PostLikedBy> PostsLikedBy { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -29,6 +30,10 @@ namespace Symposium.Data.Database
                 .Entity<Post>()
                 .Property(p => p.Archived)
                 .HasDefaultValue(false);
+
+           modelBuilder
+                .Entity<PostLikedBy>()
+                .ToTable("PostLikedBy");
         }
     }
 }
