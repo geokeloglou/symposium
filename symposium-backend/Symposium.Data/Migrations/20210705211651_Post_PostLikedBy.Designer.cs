@@ -10,8 +10,8 @@ using Symposium.Data.Database;
 namespace Symposium.Data.Migrations
 {
     [DbContext(typeof(SymposiumDbContext))]
-    [Migration("20210606173621_Post")]
-    partial class Post
+    [Migration("20210705211651_Post_PostLikedBy")]
+    partial class Post_PostLikedBy
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -38,11 +38,10 @@ namespace Symposium.Data.Migrations
                     b.Property<string>("ImageUrl")
                         .HasColumnType("text");
 
-                    b.Property<string>("Likes")
-                        .IsRequired()
+                    b.Property<int>("Likes")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("text")
-                        .HasDefaultValue("0");
+                        .HasColumnType("integer")
+                        .HasDefaultValue(0);
 
                     b.Property<string>("Text")
                         .IsRequired()
@@ -59,6 +58,30 @@ namespace Symposium.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Post");
+                });
+
+            modelBuilder.Entity("Symposium.Data.Models.PostLikedBy", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset>("LikedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("PostId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PostId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("PostLikedBy");
                 });
 
             modelBuilder.Entity("Symposium.Data.Models.User", b =>
@@ -118,6 +141,21 @@ namespace Symposium.Data.Migrations
                 {
                     b.HasOne("Symposium.Data.Models.User", null)
                         .WithMany("Posts")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Symposium.Data.Models.PostLikedBy", b =>
+                {
+                    b.HasOne("Symposium.Data.Models.Post", null)
+                        .WithMany("PostLikes")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Symposium.Data.Models.User", null)
+                        .WithMany("UserLikes")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
