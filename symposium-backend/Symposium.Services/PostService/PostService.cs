@@ -134,9 +134,7 @@ namespace Symposium.Services.PostService
                     };
                 
                     post.Likes += 1;
-
-                    await _context.PostsLikedBy.AddAsync(postLikedBy);
-                    await _context.SaveChangesAsync();
+                    _context.PostsLikedBy.Add(postLikedBy);
 
                     response.Data = likePostDto.Id;
                     response.Message = "Post has been liked.";
@@ -144,15 +142,14 @@ namespace Symposium.Services.PostService
                 else
                 {
                     post.Likes -= 1;
-
                     _context.PostsLikedBy.Remove(likedPostByUser);
-                    await _context.SaveChangesAsync();
 
                     response.Data = likePostDto.Id;
                     response.Message = "Like has been removed.";
                 }
             }
 
+            await _context.SaveChangesAsync();
             return response;
         }
 
