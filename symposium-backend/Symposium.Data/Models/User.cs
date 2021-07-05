@@ -44,5 +44,8 @@ namespace Symposium.Data.Models
         
         [ForeignKey("UserId")]
         public ICollection<Post> Posts { get; set; }
+        
+        [ForeignKey("UserId")]
+        public ICollection<PostLikedBy> UserLikes { get; set; }
     }
 }
