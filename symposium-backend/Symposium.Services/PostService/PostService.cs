@@ -145,7 +145,7 @@ namespace Symposium.Services.PostService
                     _context.PostsLikedBy.Remove(likedPostByUser);
 
                     response.Data = likePostDto.Id;
-                    response.Message = "Like has been removed.";
+                    response.Message = "Post has been unliked.";
                 }
             }
 
