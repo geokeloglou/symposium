@@ -1,11 +1,12 @@
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { CreatePost, DeletePost, LikedPostData, PostData } from '../../../models/post.interface';
+import { CreatePost, LikedPostData, PostData } from '../../../models/post.interface';
 import { PostService } from '../../../services/post.service';
 import { catchError, distinctUntilChanged, filter, map } from 'rxjs/operators';
 import { NotifierService } from '../../../services/notifier.service';
 import { ApiResponse } from '../../../models/http.interface';
 import { Injectable, OnDestroy } from '@angular/core';
 import { Guid } from 'guid-typescript';
+import { ConfirmDialogService } from '../../../shared/confirm-dialog/confirm-dialog.service';
 
 @Injectable()
 export class PostSandbox implements OnDestroy {
@@ -18,7 +19,8 @@ export class PostSandbox implements OnDestroy {
   private getAllLikedPostsSubscription: Subscription;
   private deletePostSubscription: Subscription;
 
-  constructor(private postService: PostService, private notifierService: NotifierService) {
+  constructor(private postService: PostService, private notifierService: NotifierService,
+              private confirmDialogService: ConfirmDialogService) {
     this.init();
   }
 
@@ -63,13 +65,17 @@ export class PostSandbox implements OnDestroy {
 
   deletePost(postId: Guid): void {
     this.deletePostSubscription?.unsubscribe();
-    this.deletePostSubscription = this.postService.deletePost({ id: postId })
-      .subscribe((response: ApiResponse) => {
-        this.getAllPosts();
-        this.notifierService.showNotification(response.message, 'OK', 'success');
-      }, (error: ApiResponse) => {
-        this.notifierService.showNotification(error.message, 'OK', 'error');
-      });
+    this.confirmDialogService.openConfirmDialog().subscribe((bool: boolean) => {
+      if (bool) {
+        this.deletePostSubscription = this.postService.deletePost({ id: postId })
+          .subscribe((response: ApiResponse) => {
+            this.getAllPosts();
+            this.notifierService.showNotification(response.message, 'OK', 'success');
+          }, (error: ApiResponse) => {
+            this.notifierService.showNotification(error.message, 'OK', 'error');
+          });
+      }
+    });
   }
 
   likePost(postId: Guid): void {
