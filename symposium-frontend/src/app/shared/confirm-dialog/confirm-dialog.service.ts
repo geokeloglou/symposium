@@ -1,34 +1,17 @@
 import { Injectable } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
-import { map, take } from 'rxjs/operators';
 import { ConfirmDialogComponent } from './confirm-dialog.component';
+import { CustomModalConfigData } from './modal.data';
 
 @Injectable()
 export class ConfirmDialogService {
 
-  dialogRef: MatDialogRef<ConfirmDialogComponent>;
-
-  constructor(private dialog: MatDialog) {
+  constructor(private matDialog: MatDialog) {
   }
 
-  public open(options: any): void {
-    this.dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      data: {
-        title: options.title,
-        message: options.message,
-        cancelText: options.cancelText,
-        confirmText: options.confirmText,
-      },
-    });
+  openConfirmDialog(modalConfig?: CustomModalConfigData): Observable<boolean> {
+    return this.matDialog.open(ConfirmDialogComponent, modalConfig).afterClosed();
   }
 
-  public confirmed(): Observable<any> {
-    return this.dialogRef.afterClosed().pipe(
-      take(1),
-      map((res) => {
-        return res;
-      }),
-    );
-  }
 }
