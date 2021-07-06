@@ -1,35 +1,28 @@
-import { ChangeDetectionStrategy, Component, Inject, } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject, ViewEncapsulation } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ModalData } from './modal.data';
+
+export const CONFIRM_DEFAULT_DATA: ModalData = {
+  title: 'Warning!',
+  message: 'Are you sure you want to proceed?',
+  cancelText: 'No',
+  confirmText: 'Yes'
+};
 
 @Component({
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  selector: 'app-confirm-dialog',
+  selector: 'confirm-modal',
   templateUrl: './confirm-dialog.component.html',
   styleUrls: ['./confirm-dialog.component.sass'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ConfirmDialogComponent {
+
   constructor(
-    @Inject(MAT_DIALOG_DATA)
-    public data: {
-      cancelText: string;
-      confirmText: string;
-      message: string;
-      title: string;
-    },
-    private matDialogRef: MatDialogRef<ConfirmDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: ModalData,
   ) {
-  }
-
-  public cancel(): void {
-    this.close(false);
-  }
-
-  public confirm(): void {
-    this.close(true);
-  }
-
-  public close(value: any): void {
-    this.matDialogRef.close(value);
+    if (!this.data) {
+      this.data = CONFIRM_DEFAULT_DATA;
+    }
   }
 
 }

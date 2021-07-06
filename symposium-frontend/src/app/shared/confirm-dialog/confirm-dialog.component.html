@@ -1,13 +1,9 @@
-<mat-icon color="warn">warning</mat-icon>
-<h2 mat-dialog-title class="title">
-  {{ data.title }}
-</h2>
-<mat-dialog-content>
-  <h3>{{ data.message }}</h3>
-</mat-dialog-content>
+<div class="lp-confirm-dialog-header">
+  <mat-icon>warning</mat-icon>
+  <h1>{{ data.title }}</h1>
+</div>
+<mat-dialog-content><h3>{{ data.message }}</h3></mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-button (click)="cancel()">{{ data.cancelText }}</button>
-  <button mat-raised-button color="primary" (click)="confirm()">
-    {{ data.confirmText }}
-  </button>
+  <button mat-flat-button color="primary" [mat-dialog-close]="false">{{ data.cancelText }}</button>
+  <button mat-flat-button color="primary" [mat-dialog-close]="true">{{ data.confirmText }}</button>
 </mat-dialog-actions>
