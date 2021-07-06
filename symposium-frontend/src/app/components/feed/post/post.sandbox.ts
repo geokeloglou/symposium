@@ -100,6 +100,7 @@ export class PostSandbox implements OnDestroy {
     this.createPostSubscription?.unsubscribe();
     this.likePostSubscription?.unsubscribe();
     this.getAllLikedPostsSubscription?.unsubscribe();
+    this.deletePostSubscription?.unsubscribe();
     this._posts$.complete();
     this._likedPosts$.complete();
     this._posts$.next([]);
