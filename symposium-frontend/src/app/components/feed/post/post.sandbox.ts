@@ -1,5 +1,5 @@
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { CreatePost, LikedPostData, PostData } from '../../../models/post.interface';
+import { CreatePost, DeletePost, LikedPostData, PostData } from '../../../models/post.interface';
 import { PostService } from '../../../services/post.service';
 import { catchError, distinctUntilChanged, filter, map } from 'rxjs/operators';
 import { NotifierService } from '../../../services/notifier.service';
@@ -16,6 +16,7 @@ export class PostSandbox implements OnDestroy {
   private likePostSubscription: Subscription;
   private _likedPosts$ = new BehaviorSubject<LikedPostData[]>([]);
   private getAllLikedPostsSubscription: Subscription;
+  private deletePostSubscription: Subscription;
 
   constructor(private postService: PostService, private notifierService: NotifierService) {
     this.init();
@@ -52,6 +53,17 @@ export class PostSandbox implements OnDestroy {
   createPost(post: CreatePost): void {
     this.createPostSubscription?.unsubscribe();
     this.createPostSubscription = this.postService.createPost(post)
+      .subscribe((response: ApiResponse) => {
+        this.getAllPosts();
+        this.notifierService.showNotification(response.message, 'OK', 'success');
+      }, (error: ApiResponse) => {
+        this.notifierService.showNotification(error.message, 'OK', 'error');
+      });
+  }
+
+  deletePost(postId: Guid): void {
+    this.deletePostSubscription?.unsubscribe();
+    this.deletePostSubscription = this.postService.deletePost({ id: postId })
       .subscribe((response: ApiResponse) => {
         this.getAllPosts();
         this.notifierService.showNotification(response.message, 'OK', 'success');
