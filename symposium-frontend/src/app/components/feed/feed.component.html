@@ -9,5 +9,5 @@
   <app-post *ngFor="let post of (postSandbox.posts$ | async)" [firstname]="post.firstname" [lastname]="post.lastname"
             [username]="post.username" [date]="post.createdDate" [text]="post.text" [likes]="post.likes"
             [liked]="postSandbox.isPostLiked(post.postId)" [postImageUrl]="post.postImageUrl"
-            (like)="postSandbox.likePost(post.postId)"></app-post>
+            (like)="postSandbox.likePost(post.postId)" (delete)="postSandbox.deletePost(post.postId)"></app-post>
 </div>
