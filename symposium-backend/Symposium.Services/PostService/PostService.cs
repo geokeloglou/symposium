@@ -22,6 +22,7 @@ namespace Symposium.Services.PostService
         Task<ServiceResponse<List<GetAllPostsDto>>> GetAllPosts();
         Task<ServiceResponse<Guid>> LikePost(LikePostDto postId);
         Task<ServiceResponse<List<PostLikedBy>>> GetAllLikedPosts();
+        Task<ServiceResponse<Guid>> DeletePost(DeletePostDto deletePostDto);
     }
     
     public class PostService : IPostService
@@ -66,6 +67,22 @@ namespace Symposium.Services.PostService
             
             response.Data = post.Id;
             response.Message = "Post has been created.";
+
+            return response;
+        }
+        
+        public async Task<ServiceResponse<Guid>> DeletePost(DeletePostDto deletePostDto)
+        {
+            var response = new ServiceResponse<Guid>();
+            var post = await _context.Posts.FirstOrDefaultAsync(p => 
+                p.Id == deletePostDto.Id && 
+                p.UserId == GetUserGuid());
+
+            _context.Posts.Remove(post);
+            await _context.SaveChangesAsync();
+            
+            response.Data = post.Id;
+            response.Message = "Post has been deleted.";
 
             return response;
         }
