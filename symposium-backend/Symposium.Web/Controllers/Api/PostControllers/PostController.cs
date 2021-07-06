@@ -30,6 +30,18 @@ namespace Symposium.Web.Controllers.Api.PostControllers
             return Ok(response);
         }
         
+        [HttpPost("delete")]
+        public async Task<IActionResult> DeletePost(DeletePostDto deletePostDto)
+        {
+            var response = await _postService.DeletePost(deletePostDto);
+            if (!response.Success)
+            {
+                return NotFound(response);
+            }
+
+            return Ok(response);
+        }
+        
         [HttpGet("get")]
         public async Task<IActionResult> GetPosts()
         {
