@@ -43,6 +43,7 @@ import { ConfirmDialogService } from './shared/confirm-dialog/confirm-dialog.ser
 import { PostService } from './services/post.service';
 import { AddPostDialogComponent } from './components/feed/add-post-dialog/add-post-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatMenuModule } from '@angular/material/menu';
 
 
 @NgModule({
@@ -91,7 +92,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     }),
     MatDividerModule,
     ConfirmDialogModule,
-    MatDialogModule
+    MatDialogModule,
+    MatMenuModule
   ],
   providers: [
     AuthService,
