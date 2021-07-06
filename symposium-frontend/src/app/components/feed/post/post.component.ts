@@ -16,6 +16,7 @@ export class PostComponent {
   @Input() likes: number;
   @Input() liked: boolean;
   @Output() like = new EventEmitter<void>();
+  @Output() delete = new EventEmitter<void>();
 
   constructor() {
   }
