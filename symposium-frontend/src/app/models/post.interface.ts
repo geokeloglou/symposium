@@ -9,6 +9,10 @@ export interface LikePost {
   id: Guid;
 }
 
+export interface DeletePost {
+  id: Guid;
+}
+
 export interface LikedPostData {
   id: Guid;
   userId: Guid;
