@@ -30,6 +30,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDividerModule } from '@angular/material/divider';
+import { ConfirmDialogModule } from './shared/confirm-dialog/confirm-dialog.module';
 
 import { TokenInterceptor } from './interceptors/token.interceptor';
 
@@ -38,8 +39,6 @@ import { TokenService } from './services/token.service';
 
 import { AuthGuard } from './guards/auth.guard';
 import { JwtModule } from '@auth0/angular-jwt';
-import { ConfirmDialogModule } from './shared/confirm-dialog/confirm-dialog.module';
-import { ConfirmDialogService } from './shared/confirm-dialog/confirm-dialog.service';
 import { PostService } from './services/post.service';
 import { AddPostDialogComponent } from './components/feed/add-post-dialog/add-post-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
