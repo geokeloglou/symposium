@@ -7,11 +7,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Azure;
 using Microsoft.IdentityModel.Tokens;
 using Symposium.Data.Database;
 using Symposium.Services.UserAuthenticationService;
 using Symposium.Services.EmailService;
 using Symposium.Services.PostService;
+using Symposium.Services.StorageService;
 using Symposium.Services.Utilities;
 
 namespace Symposium.Web
@@ -48,6 +50,11 @@ namespace Symposium.Web
                 .AllowAnyMethod()
                 .AllowAnyHeader()));
             services.AddControllers();
+            services.AddTransient<IStorageService, StorageService>();
+            services.AddAzureClients(builder =>
+            {
+                builder.AddBlobServiceClient(Configuration.GetSection("Storage:ConnectionString").Value);
+            });
             services.AddScoped<IEmailSender, EmailSender>();
             services.AddScoped<IUserAuthenticationService, UserAuthenticationService>();
             services.AddScoped<IPostService, PostService>();
