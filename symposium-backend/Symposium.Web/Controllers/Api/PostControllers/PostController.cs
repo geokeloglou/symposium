@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Symposium.DTO.PostDto;
@@ -18,8 +17,11 @@ namespace Symposium.Web.Controllers.Api.PostControllers
             _postService = postService;
         }
         
-        [HttpPost("create")]
-        public async Task<IActionResult> CreatePost(CreatePostDto post)
+        [HttpPost("create"), 
+         Consumes("multipart/form-data"), 
+         RequestFormLimits(MultipartBodyLengthLimit = 20000000), 
+         RequestSizeLimit(20000000)]
+        public async Task<IActionResult> CreatePost([FromForm] CreatePostDto post)
         {
             var response = await _postService.CreatePost(post);
             if (!response.Success)
