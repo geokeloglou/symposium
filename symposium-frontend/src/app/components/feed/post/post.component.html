@@ -18,10 +18,11 @@
         </mat-menu>
       </header>
       <mat-divider></mat-divider>
-      <div *ngIf="text; then content else image"></div>
-      <ng-template #content><p class="post-body-content-text">{{ text }}</p></ng-template>
-      <ng-template #image>{{ postImageUrl }}</ng-template>
-      <button mat-icon-button (click)="like.emit()">
+      <p class="post-body-content-text">{{ text }}</p>
+      <div class="post-body-content-post-img-container">
+        <img class="post-body-content-post-image" [src]="postImageUrl">
+      </div>
+      <button class="post-body-content-post-like" mat-icon-button (click)="like.emit()">
         <mat-icon>{{ liked ? 'favorite' : 'favorite_border' }}</mat-icon>
       </button>
       <span class="post-body-content-likes">{{ likes }}</span>
