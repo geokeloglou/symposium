@@ -11,6 +11,7 @@ using Symposium.Data.Database;
 using Symposium.Data.Models;
 using Symposium.DTO.PostDto;
 using Symposium.Services.EmailService;
+using Symposium.Services.StorageService;
 using Symposium.Services.Utilities;
 
 namespace Symposium.Services.PostService
@@ -32,19 +33,22 @@ namespace Symposium.Services.PostService
         private readonly IEmailSender _emailSender;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IPgConnection _pgConnection;
+        private readonly IStorageService _storageService;
 
         public PostService(
             SymposiumDbContext context,
             IConfiguration configuration,
             IEmailSender emailSender, 
             IHttpContextAccessor httpContextAccessor,
-            IPgConnection pgConnection)
+            IPgConnection pgConnection,
+            IStorageService storageService)
         {
             _context = context;
             _configuration = configuration;
             _emailSender = emailSender;
             _httpContextAccessor = httpContextAccessor;
             _pgConnection = pgConnection;
+            _storageService = storageService;
         }
         
         private Guid GetUserGuid() =>
@@ -54,19 +58,37 @@ namespace Symposium.Services.PostService
         public async Task<ServiceResponse<Guid>> CreatePost(CreatePostDto postDto)
         {
             var response = new ServiceResponse<Guid>();
-            var post = new Post
+            try
             {
-                Text = postDto.Text,
-                ImageUrl = postDto.ImageUrl,
-                CreatedDate = DateTimeOffset.Now,
-                UserId = GetUserGuid()
-            };
-            
-            await _context.Posts.AddAsync(post);
-            await _context.SaveChangesAsync();
-            
-            response.Data = post.Id;
-            response.Message = "Post has been created.";
+                string imageUrl = null;
+                if (postDto.PostImage != null)
+                {
+                    imageUrl = _configuration.GetSection("Storage:ImageUrl").Value + postDto.PostImage.FileName;
+                    await _storageService.UploadAsync(postDto.PostImage);
+
+                }
+                var post = new Post
+                {
+                    Text = postDto.Text,
+                    ImageUrl = imageUrl,
+                    CreatedDate = DateTimeOffset.Now,
+                    UserId = GetUserGuid()
+                };
+                
+                await _context.Posts.AddAsync(post);
+                await _context.SaveChangesAsync();
+                
+                response.Data = post.Id;
+                response.Message = "Post has been created.";
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Data);
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace);
+                response.Success = false;
+                response.Message = "Post has not been created.";
+            }
 
             return response;
         }
