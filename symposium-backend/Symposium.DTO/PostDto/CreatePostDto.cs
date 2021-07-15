@@ -1,5 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Symposium.DTO.PostDto
 {
@@ -12,10 +14,10 @@ namespace Symposium.DTO.PostDto
         
         public DateTimeOffset? UpdatedDate { get; set; }
         
-        public string Likes { get; set; }
+        public int Likes { get; set; }
         
         public bool Archived { get; set; }
         
-        public string? ImageUrl { get; set; }
+        public IFormFile? PostImage { get; set; }
     }
 }
