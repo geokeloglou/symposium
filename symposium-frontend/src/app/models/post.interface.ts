@@ -2,7 +2,7 @@ import { Guid } from 'guid-typescript';
 
 export interface CreatePost {
   text: string;
-  imageUrl?: string;
+  postImage: string | Blob;
 }
 
 export interface LikePost {
