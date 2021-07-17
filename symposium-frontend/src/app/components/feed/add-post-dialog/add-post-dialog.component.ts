@@ -16,8 +16,13 @@ export class AddPostDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      text: ['', Validators.required]
+      text: ['', Validators.required],
+      postImage: ['']
     });
+  }
+
+  onFileChange(event: any): void {
+    this.form.controls.postImage.setValue(event.target.files[0]);
   }
 
   save(): void {
