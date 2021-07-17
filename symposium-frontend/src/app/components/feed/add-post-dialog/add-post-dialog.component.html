@@ -4,6 +4,9 @@
     <mat-label>What is on your mind?</mat-label>
     <textarea matInput formControlName="text" required></textarea>
   </mat-form-field>
+  <input type="file" accept="image/png, image/jpeg" (change)="onFileChange($event)">
+  <input type="hidden" formControlName="postImage"/>
+  <h5>File type: jpeg/png</h5>
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button (click)="close()">Cancel</button>
