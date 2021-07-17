@@ -5,7 +5,6 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ApiResponse } from '../models/http.interface';
 import { CreatePost, DeletePost, LikePost } from '../models/post.interface';
-import { Guid } from 'guid-typescript';
 
 @Injectable()
 export class PostService extends BaseService {
@@ -21,7 +20,10 @@ export class PostService extends BaseService {
   }
 
   createPost(post: CreatePost): Observable<ApiResponse> {
-    return this.httpClient.post<ApiResponse>(`${ this.apiUrl }/post/create`, post);
+    const formData = new FormData();
+    formData.append('text', post.text);
+    formData.append('postImage', post.postImage);
+    return this.httpClient.post<ApiResponse>(`${ this.apiUrl }/post/create`, formData);
   }
 
   deletePost(post: DeletePost): Observable<ApiResponse> {
