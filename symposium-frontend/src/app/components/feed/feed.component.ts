@@ -3,16 +3,17 @@ import { PostSandbox } from './post/post.sandbox';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AddPostDialogComponent } from './add-post-dialog/add-post-dialog.component';
 import { CreatePost } from '../../models/post.interface';
+import { FeedSandbox } from './feed.sandbox';
 
 @Component({
   selector: 'app-feed',
   templateUrl: './feed.component.html',
   styleUrls: ['./feed.component.sass'],
-  providers: [PostSandbox]
+  providers: [PostSandbox, FeedSandbox]
 })
 export class FeedComponent implements OnInit {
 
-  constructor(public postSandbox: PostSandbox, private dialog: MatDialog) {
+  constructor(public postSandbox: PostSandbox, public feedSandbox: FeedSandbox, private dialog: MatDialog) {
   }
 
   ngOnInit(): void {
