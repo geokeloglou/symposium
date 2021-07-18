@@ -4,6 +4,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AddPostDialogComponent } from './add-post-dialog/add-post-dialog.component';
 import { CreatePost } from '../../models/post.interface';
 import { FeedSandbox } from './feed.sandbox';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-feed',
@@ -13,10 +14,15 @@ import { FeedSandbox } from './feed.sandbox';
 })
 export class FeedComponent implements OnInit {
 
-  constructor(public postSandbox: PostSandbox, public feedSandbox: FeedSandbox, private dialog: MatDialog) {
+  form: FormGroup;
+
+  constructor(public postSandbox: PostSandbox, public feedSandbox: FeedSandbox, private dialog: MatDialog, private fb: FormBuilder) {
   }
 
   ngOnInit(): void {
+    this.form = this.fb.group({
+      profileImage: [''],
+    });
   }
 
   createPost(): void {
@@ -30,4 +36,9 @@ export class FeedComponent implements OnInit {
       this.postSandbox.createPost(post);
     });
   }
+
+  onFileChange(event: any): void {
+    this.feedSandbox.uploadProfileImage(event.target.files[0]);
+  }
+
 }
