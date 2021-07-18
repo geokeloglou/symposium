@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Symposium.DTO.AuthenticationDto;
 using Symposium.Services.UserAuthenticationService;
 
-namespace Symposium.Web.Controllers.Api.AuthenticationControllers
+namespace Symposium.Web.Controllers.Api.AuthenticationController
 {
     [ApiController]
     [Route("api/auth")]

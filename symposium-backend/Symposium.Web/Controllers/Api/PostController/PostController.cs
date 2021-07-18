@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Symposium.DTO.PostDto;
 using Symposium.Services.PostService;
 
-namespace Symposium.Web.Controllers.Api.PostControllers
+namespace Symposium.Web.Controllers.Api.PostController
 {
     [ApiController]
     [Route("api/post")]
