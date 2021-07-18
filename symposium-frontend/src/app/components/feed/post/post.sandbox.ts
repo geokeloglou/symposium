@@ -37,7 +37,7 @@ export class PostSandbox implements OnDestroy {
     this.getAllLikedPosts();
   }
 
-  private getAllPosts(): void {
+  getAllPosts(): void {
     this.getAllPostsSubscription?.unsubscribe();
     this.getAllPostsSubscription = this.postService.getAllPosts()
       .pipe(
