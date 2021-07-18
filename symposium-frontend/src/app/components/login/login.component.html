@@ -3,24 +3,12 @@
     <form (submit)="onSubmit()" [formGroup]="loginForm">
       <h1>Login</h1>
       <mat-form-field>
-        <input
-          type="text"
-          matInput
-          formControlName="email"
-          placeholder="Email"
-          required
-        />
+        <input type="text" matInput formControlName="email" placeholder="Email" required/>
         <mat-error>Please provide a valid email address</mat-error>
       </mat-form-field>
       <mat-form-field>
-        <input
-          type="password"
-          matInput
-          formControlName="password"
-          placeholder="Password"
-          required
-          [type]="hide ? 'password' : 'text'"
-        />
+        <input type="password" matInput formControlName="password" placeholder="Password" required
+               [type]="hide ? 'password' : 'text'"/>
         <a mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
            [attr.aria-pressed]="hide" [disableRipple]="true">
           <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
