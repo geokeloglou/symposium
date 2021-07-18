@@ -1,6 +1,7 @@
 <div class="feed-container">
   <div class="feed-container-tools">
-    <img class="feed-container-tools-profile-img" src="/assets/default_profile_avatar.svg">
+    <img class="feed-container-tools-profile-img"
+         [src]="feedSandbox.imageUrl ? feedSandbox.imageUrl : '/assets/default_profile_avatar.svg'">
     <button mat-icon-button matTooltip="Create post" matTooltipPosition="right" (click)="createPost()">
       <mat-icon>add</mat-icon>
     </button>
@@ -9,5 +10,6 @@
   <app-post *ngFor="let post of (postSandbox.posts$ | async)" [firstname]="post.firstname" [lastname]="post.lastname"
             [username]="post.username" [date]="post.createdDate" [text]="post.text" [likes]="post.likes"
             [liked]="postSandbox.isPostLiked(post.postId)" [postImageUrl]="post.postImageUrl"
-            (like)="postSandbox.likePost(post.postId)" (delete)="postSandbox.deletePost(post.postId)"></app-post>
+            [userImageUrl]="post.userImageUrl" (like)="postSandbox.likePost(post.postId)"
+            (delete)="postSandbox.deletePost(post.postId)"></app-post>
 </div>
