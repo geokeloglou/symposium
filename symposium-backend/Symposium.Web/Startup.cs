@@ -1,4 +1,5 @@
 using System.Text;
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Azure;
 using Microsoft.IdentityModel.Tokens;
 using Symposium.Data.Database;
+using Symposium.Services;
 using Symposium.Services.UserAuthenticationService;
 using Symposium.Services.EmailService;
 using Symposium.Services.PostService;
+using Symposium.Services.ProfileService;
 using Symposium.Services.StorageService;
 using Symposium.Services.Utilities;
 
@@ -39,7 +42,7 @@ namespace Symposium.Web
                 .AllowAnyMethod()
                 .AllowAnyHeader())); 
             services.AddControllers();
-            
+            services.AddAutoMapper(typeof(AutoMapperProfile));
             services.AddDbContext<SymposiumDbContext>(options =>
             {
                 options.UseNpgsql(Configuration.GetSection("ConnectionStrings:DefaultConnection").Value);
@@ -58,6 +61,7 @@ namespace Symposium.Web
             services.AddScoped<IEmailSender, EmailSender>();
             services.AddScoped<IUserAuthenticationService, UserAuthenticationService>();
             services.AddScoped<IPostService, PostService>();
+            services.AddScoped<IProfileService, ProfileService>();
             services.AddSingleton(Configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>());
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
