@@ -18,4 +18,10 @@ export class ProfileService extends BaseService {
     return this.httpClient.get<ApiResponse>(`${ this.apiUrl }/profile/info`);
   }
 
+  uploadProfileImage(profileImage: string | Blob): Observable<ApiResponse> {
+    const formData = new FormData();
+    formData.append('profileImage', profileImage);
+    return this.httpClient.post<ApiResponse>(`${this.apiUrl}/profile/image/upload`, formData);
+  }
+
 }
