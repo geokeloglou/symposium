@@ -1,6 +1,7 @@
 <div class="post">
   <div class="post-body">
-    <img class="post-body-avatar" src="/assets/default_profile_avatar.svg" alt="User's image">
+    <img class="post-body-avatar" [src]="userImageUrl ? userImageUrl : '/assets/default_profile_avatar.svg'"
+         alt="User's image">
     <div class="post-body-content">
       <header class="post-body-content-header">
         <strong>{{ firstname }} {{ lastname }}</strong>
