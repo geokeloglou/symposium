@@ -1,7 +1,8 @@
 <mat-card>
   <mat-card-content>
     <form (submit)="onSubmit()" [formGroup]="loginForm">
-      <h1>Login</h1>
+      <h1>Symposium</h1>
+      <h2>Login</h2>
       <mat-form-field>
         <input type="text" matInput formControlName="email" placeholder="Email" required/>
         <mat-error>Please provide a valid email address</mat-error>
@@ -13,7 +14,7 @@
            [attr.aria-pressed]="hide" [disableRipple]="true">
           <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
         </a>
-        <mat-error>Please provide your password</mat-error>
+        <mat-error>Please provide a valid password</mat-error>
       </mat-form-field>
       <mat-card-actions>
         <button mat-raised-button color="primary" [disabled]="isValid()">Login</button>

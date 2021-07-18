@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  loginForm!: FormGroup;
+  loginForm: FormGroup;
   hide = true;
 
   constructor(
@@ -34,20 +34,21 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.loginForm.value).subscribe(
       (response: ApiResponse) => {
         this.router.navigate(['/']);
-        this.notifierService.showNotification('Logged in successfully.', 'OK', 'success');
+        this.notifierService.showNotification(response.message, 'OK', 'success');
       },
-      (error: any) => {
+      (error: ApiResponse) => {
         this.resetForm(this.loginForm);
-        this.notifierService.showNotification('Login failed.', 'OK', 'error');
+        this.notifierService.showNotification(error.message, 'OK', 'error');
       }
     );
   }
 
   resetForm(form: FormGroup): void {
-    form.reset();
-    Object.keys(form.controls).forEach((key) => {
-      this.loginForm.get(key)?.setErrors(null);
-    });
+    form.get('password')?.reset();
+    // form.get('password')?.setErrors(null);
+    // Object.keys(form.controls).forEach((key) => {
+    //   this.loginForm.get(key)?.setErrors(null);
+    // });
   }
 
   isValid(): boolean {

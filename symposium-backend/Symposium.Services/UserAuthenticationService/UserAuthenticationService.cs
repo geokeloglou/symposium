@@ -106,7 +106,7 @@ namespace Symposium.Services.UserAuthenticationService
                 .SaveChangesAsync();
 
             response.Data = newUser.Id;
-            response.Message = "A user has been registered.";
+            response.Message = "User has been registered successfully.";
 
             return response;
         }
@@ -168,7 +168,7 @@ namespace Symposium.Services.UserAuthenticationService
             await _context.SaveChangesAsync();
             await _emailSender.SendEmailAsync(message);
 
-            response.Message = "Check your email for information.";
+            response.Message = "Please check email for information.";
 
             return response;
         }
@@ -184,7 +184,7 @@ namespace Symposium.Services.UserAuthenticationService
                 if (DateTimeOffset.Now > user.ResetPasswordTokenDate)
                 {
                     response.Success = false;
-                    response.Message = "Your token has been expired.";
+                    response.Message = "Token has been expired.";
 
                     return response;
                 }
@@ -197,7 +197,7 @@ namespace Symposium.Services.UserAuthenticationService
 
                 await _context.SaveChangesAsync();
 
-                response.Message = "Your new password has been set.";
+                response.Message = "New password has been set.";
 
                 return response;
             }

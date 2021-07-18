@@ -12,10 +12,10 @@ import { NotifierService } from '../../services/notifier.service';
 })
 export class ResetPasswordComponent implements OnInit {
 
-  resetPasswordForm!: FormGroup;
-  loginInvalid?: boolean;
-  token!: string;
-  params!: string;
+  resetPasswordForm: FormGroup;
+  loginInvalid: boolean;
+  token: string;
+  params: string;
 
   constructor(
     private fb: FormBuilder,
@@ -49,11 +49,11 @@ export class ResetPasswordComponent implements OnInit {
     this.authService.resetPassword(body).subscribe(
       (response: ApiResponse) => {
         this.resetForm(this.resetPasswordForm);
-        this.notifierService.showNotification('Password has been reset successfully.', 'OK', 'success');
+        this.notifierService.showNotification(response.message, 'OK', 'success');
       },
-      (error) => {
+      (error: ApiResponse) => {
         this.resetForm(this.resetPasswordForm);
-        this.notifierService.showNotification('Password reset has been failed.', 'OK', 'error');
+        this.notifierService.showNotification(error.message, 'OK', 'error');
       }
     );
   }
