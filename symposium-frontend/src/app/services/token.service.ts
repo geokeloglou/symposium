@@ -5,17 +5,12 @@ import { JwtHelperService } from '@auth0/angular-jwt';
   providedIn: 'root',
 })
 export class TokenService {
-  token!: string;
 
   constructor(private jwtHelperService: JwtHelperService) {
   }
 
   tokenExpired(): boolean {
-    this.token = localStorage.getItem('token') || '';
-    if (this.jwtHelperService.isTokenExpired(this.token)) {
-      return true;
-    }
-    return false;
+    return this.jwtHelperService.isTokenExpired(localStorage.getItem('token') || '');
   }
 
   parseJwt(token: string): any {
