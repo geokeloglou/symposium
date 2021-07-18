@@ -43,6 +43,7 @@ import { PostService } from './services/post.service';
 import { AddPostDialogComponent } from './components/feed/add-post-dialog/add-post-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
+import { ProfileService } from './services/profile.service';
 
 
 @NgModule({
@@ -99,6 +100,7 @@ import { MatMenuModule } from '@angular/material/menu';
     AuthGuard,
     TokenService,
     PostService,
+    ProfileService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
