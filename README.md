@@ -20,6 +20,7 @@
 
 - [.NET Core](https://dotnet.microsoft.com/download/dotnet/3.1) - Back-end framework
 - [Entity Framework Core](https://docs.microsoft.com/en-us/ef/) - ORM framework
+- [Dapper](https://dapper-tutorial.net/) - Micro ORM
 - [PostgreSQL](https://www.postgresql.org/) - Database
 - [Docker](https://www.docker.com/) - Containerization
 - [Docker-compose](https://docs.docker.com/compose/) - Multi-containerization
