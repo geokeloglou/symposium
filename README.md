@@ -4,8 +4,8 @@
 
 ## Top level structure
 
-- symposium-frontend: Front-end of Symposium web application
-- symposium-backend: Back-end of Symposium web application
+- [symposium-frontend](https://github.com/geokeloglou/symposium/tree/master/symposium-backend) - Front-end of Symposium web application
+- [symposium-backend](https://github.com/geokeloglou/symposium/tree/master/symposium-backend) - Back-end of Symposium web application
 
 ## Technologies
 
