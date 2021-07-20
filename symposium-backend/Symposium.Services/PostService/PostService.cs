@@ -10,7 +10,6 @@ using Microsoft.Extensions.Configuration;
 using Symposium.Data.Database;
 using Symposium.Data.Models;
 using Symposium.DTO.PostDto;
-using Symposium.Services.EmailService;
 using Symposium.Services.StorageService;
 using Symposium.Services.Utilities;
 
@@ -30,7 +29,6 @@ namespace Symposium.Services.PostService
     {
         private readonly SymposiumDbContext _context;
         private readonly IConfiguration _configuration;
-        private readonly IEmailSender _emailSender;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IPgConnection _pgConnection;
         private readonly IStorageService _storageService;
@@ -38,14 +36,12 @@ namespace Symposium.Services.PostService
         public PostService(
             SymposiumDbContext context,
             IConfiguration configuration,
-            IEmailSender emailSender, 
             IHttpContextAccessor httpContextAccessor,
             IPgConnection pgConnection,
             IStorageService storageService)
         {
             _context = context;
             _configuration = configuration;
-            _emailSender = emailSender;
             _httpContextAccessor = httpContextAccessor;
             _pgConnection = pgConnection;
             _storageService = storageService;
