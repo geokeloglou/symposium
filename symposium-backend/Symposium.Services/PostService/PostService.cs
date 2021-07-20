@@ -145,7 +145,7 @@ namespace Symposium.Services.PostService
                     FROM ""User"" u
                     INNER JOIN ""Post"" p
                     ON u.""Id"" = p.""UserId""
-                    ORDER BY p.""CreatedDate"" DESC;");
+                    ORDER BY p.""CreatedDate"" DESC LIMIT 15;");
 
             response.Data = new List<GetAllPostsDto>(posts);
             response.Message = "All posts.";
