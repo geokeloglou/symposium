@@ -135,7 +135,7 @@ namespace Symposium.Services.PostService
                         u.""Firstname"", 
                         u.""Lastname"", 
                         u.""ImageUrl"" as userImageUrl,
-                        p.""Id"" as PostId, 
+                        p.""Id"" as postId, 
                         p.""Text"", 
                         p.""CreatedDate"",
                         p.""UpdatedDate"",
