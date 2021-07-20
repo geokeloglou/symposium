@@ -1,8 +1,8 @@
 <div class="feed-container">
   <div class="feed-container-tools" [formGroup]="form">
     <label>
-      <input type="file" style="display:none" accept="image/png, image/jpeg"
-             formControlName="profileImage" (change)="onFileChange($event)"/>
+      <input type="file" style="display:none" accept="image/png, image/jpeg" formControlName="profileImage"
+             (change)="onFileChange($event)"/>
       <img class="feed-container-tools-profile-img pointer" alt="User's profile image"
            [src]="feedSandbox.imageUrl ? feedSandbox.imageUrl : '/assets/default_profile_avatar.svg'">
     </label>
