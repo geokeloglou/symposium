@@ -2,9 +2,9 @@ import { Guid } from 'guid-typescript';
 
 export interface Profile {
   id: Guid;
-  username: Guid;
-  firstname: Guid;
-  lastname: Date;
+  username: string;
+  firstname: string;
+  lastname: string;
   email: string;
   registeredDate: Date;
   lastLogin: Date;

@@ -3,3 +3,8 @@ export interface ApiResponse  {
   message?: string;
   success: boolean;
 }
+
+export interface ErrorResponse {
+  error: ApiResponse;
+  status: number;
+}

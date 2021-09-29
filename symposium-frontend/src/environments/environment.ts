@@ -5,6 +5,8 @@
 export const environment = {
   production: false,
   apiUrl: 'http://localhost:5000/api',
+  hubApiUrl: 'http://localhost:5000/api/chat',
+  hubUrl: 'http://localhost:5000/chat',
 };
 
 /*

@@ -1,23 +1,26 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Symposium.Data\Symposium.Data.csproj" />
-    <ProjectReference Include="..\Symposium.Services\Symposium.Services.csproj" />
+    <ItemGroup>
+        <ProjectReference Include="..\Symposium.Data\Symposium.Data.csproj" />
+        <ProjectReference Include="..\Symposium.Services\Symposium.Services.csproj" />
+    </ItemGroup>
 
-    <PackageReference Include="Localization.AspNetCore.TagHelpers" Version="0.6.0" />
-    <PackageReference Include="Microsoft.Extensions.Localization" Version="3.1.9" />
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.1">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.8.0" />
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.8.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.10" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.1">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.8.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.10" />
+        <PackageReference Include="Microsoft.Extensions.Localization" Version="3.1.9" />
+        <PackageReference Include="Microsoft.AspNetCore.SignalR.Client.Core" Version="5.0.10" />
+        <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.8.0" />
+        <PackageReference Include="Localization.AspNetCore.TagHelpers" Version="0.6.0" />
+        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
+    </ItemGroup>
 
 </Project>

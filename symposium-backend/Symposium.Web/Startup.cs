@@ -12,6 +12,7 @@ using Microsoft.Extensions.Azure;
 using Microsoft.IdentityModel.Tokens;
 using Symposium.Data.Database;
 using Symposium.Services;
+using Symposium.Services.ChatService.Hubs;
 using Symposium.Services.UserAuthenticationService;
 using Symposium.Services.EmailService;
 using Symposium.Services.PostService;
@@ -38,26 +39,19 @@ namespace Symposium.Web
                 options.UseNpgsql(Configuration.GetSection("ConnectionStrings:DefaultConnection").Value);
                 options.EnableSensitiveDataLogging();
             });
-            services.AddCors(options => options.AddPolicy("AllowAll", p => p.AllowAnyOrigin()
-                .AllowAnyMethod()
-                .AllowAnyHeader())); 
-            services.AddControllers();
             services.AddAutoMapper(typeof(AutoMapperProfile));
-            services.AddDbContext<SymposiumDbContext>(options =>
-            {
-                options.UseNpgsql(Configuration.GetSection("ConnectionStrings:DefaultConnection").Value);
-                options.EnableSensitiveDataLogging();
-            });
             services.AddPgConnection(Configuration.GetSection("ConnectionStrings:DefaultConnection").Value, "public");
-            services.AddCors(options => options.AddPolicy("AllowAll", p => p.AllowAnyOrigin()
-                .AllowAnyMethod()
-                .AllowAnyHeader()));
-            services.AddControllers();
-            services.AddTransient<IStorageService, StorageService>();
+            services.AddCors(options => options.AddPolicy("CorsPolicy", builder =>
+                builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials()
+                    .WithOrigins("http://localhost:4200")));
             services.AddAzureClients(builder =>
             {
                 builder.AddBlobServiceClient(Configuration.GetSection("Storage:ConnectionString").Value);
             });
+            services.AddTransient<IStorageService, StorageService>();
             services.AddScoped<IEmailSender, EmailSender>();
             services.AddScoped<IUserAuthenticationService, UserAuthenticationService>();
             services.AddScoped<IPostService, PostService>();
@@ -76,6 +70,8 @@ namespace Symposium.Web
                         ValidateAudience = false
                     };
                 });
+            services.AddSignalR();
+            services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -89,9 +85,9 @@ namespace Symposium.Web
             // app.UseHttpsRedirection();
 
             app.UseRouting();
-            
-            app.UseCors("AllowAll");
-            
+
+            app.UseCors("CorsPolicy");
+
             app.UseAuthentication();
 
             app.UseAuthorization();
@@ -99,6 +95,7 @@ namespace Symposium.Web
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<ChatHub>("/chat");
             });
         }
     }

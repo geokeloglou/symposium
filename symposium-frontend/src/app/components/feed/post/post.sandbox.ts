@@ -3,7 +3,7 @@ import { CreatePost, LikedPostData, PostData } from '../../../models/post.interf
 import { PostService } from '../../../services/post.service';
 import { catchError, distinctUntilChanged, filter, map } from 'rxjs/operators';
 import { NotifierService } from '../../../services/notifier.service';
-import { ApiResponse } from '../../../models/http.interface';
+import { ApiResponse, ErrorResponse } from '../../../models/http.interface';
 import { Injectable, OnDestroy } from '@angular/core';
 import { Guid } from 'guid-typescript';
 import { ConfirmDialogService } from '../../../shared/confirm-dialog/confirm-dialog.service';
@@ -41,8 +41,8 @@ export class PostSandbox implements OnDestroy {
     this.getAllPostsSubscription?.unsubscribe();
     this.getAllPostsSubscription = this.postService.getAllPosts()
       .pipe(
-        catchError((error: ApiResponse) => {
-          this.notifierService.showNotification(error.message, 'OK', 'error');
+        catchError((response: ErrorResponse) => {
+          this.notifierService.showNotification(response.error.message, 'OK', 'error');
           return [];
         }),
         filter((response: ApiResponse) => response.data !== null && response.data !== undefined),
@@ -58,8 +58,8 @@ export class PostSandbox implements OnDestroy {
       .subscribe((response: ApiResponse) => {
         this.getAllPosts();
         this.notifierService.showNotification(response.message, 'OK', 'success');
-      }, (error: ApiResponse) => {
-        this.notifierService.showNotification(error.message, 'OK', 'error');
+      }, (response: ErrorResponse) => {
+        this.notifierService.showNotification(response.error.message, 'OK', 'error');
       });
   }
 
@@ -71,8 +71,8 @@ export class PostSandbox implements OnDestroy {
           .subscribe((response: ApiResponse) => {
             this.getAllPosts();
             this.notifierService.showNotification(response.message, 'OK', 'success');
-          }, (error: ApiResponse) => {
-            this.notifierService.showNotification(error.message, 'OK', 'error');
+          }, (response: ErrorResponse) => {
+            this.notifierService.showNotification(response.error.message, 'OK', 'error');
           });
       }
     });

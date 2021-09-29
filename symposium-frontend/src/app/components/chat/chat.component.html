@@ -1,0 +1,25 @@
+<div class="chat">
+  <div class="chat__sidebar">
+    <mat-icon>radio_button_checked</mat-icon>
+    <h3>Available users</h3>
+    <div class="chat__sidebar__users"></div>
+  </div>
+  <form class="chat__main">
+    <div class="chat__messages">
+      <div *ngFor="let message of messagesArray">
+        <div class="chat__messages__image-user">
+          <img class="chat__messages__image-user__image" [src]="message.imageUrl">
+          <div class="chat__messages__image-user__user">{{message.user}}</div>
+        </div>
+        <span class="chat__messages__text">{{message.text}}</span>
+      </div>
+    </div>
+    <div class="chat__footer">
+      <form [formGroup]="form">
+        <input type="text" placeholder="Text a new message" autocomplete="off" formControlName="text"/>
+        <button mat-flat-button color="primary" (click)="send()">Send</button>
+      </form>
+    </div>
+  </form>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.7/signalr.min.js"></script>

@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ApiResponse } from '../models/http.interface';
 import { CreatePost, DeletePost, LikePost } from '../models/post.interface';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class PostService extends BaseService {
@@ -27,7 +28,7 @@ export class PostService extends BaseService {
   }
 
   deletePost(post: DeletePost): Observable<ApiResponse> {
-    return this.httpClient.post<ApiResponse>(`${ this.apiUrl }/post/delete`, post);
+    return this.httpClient.post<ApiResponse>(`${ this.apiUrl }/post/delete`, post).pipe();
   }
 
   likePost(post: LikePost): Observable<ApiResponse> {

@@ -96,6 +96,14 @@ namespace Symposium.Services.PostService
                 p.Id == deletePostDto.Id && 
                 p.UserId == GetUserGuid());
 
+            if (post == null)
+            {
+                response.Success = false;
+                response.Message = "You are not allowed to delete this post.";
+                
+                return response;
+            }
+
             _context.Posts.Remove(post);
             await _context.SaveChangesAsync();
             

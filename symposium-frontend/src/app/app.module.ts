@@ -14,12 +14,17 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 import { ForgotPasswordViewComponent } from './views/authentication-views/forgot-password-view/forgot-password-view.component';
 import { ResetPasswordViewComponent } from './views/authentication-views/reset-password-view/reset-password-view.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { AddPostDialogComponent } from './components/feed/add-post-dialog/add-post-dialog.component';
+import { ChatComponent } from './components/chat/chat.component';
+import { ChatContainerComponent } from './views/chat-container/chat-container.component';
 
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { JwtModule } from '@auth0/angular-jwt';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
@@ -31,20 +36,18 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDividerModule } from '@angular/material/divider';
 import { ConfirmDialogModule } from './shared/confirm-dialog/confirm-dialog.module';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatMenuModule } from '@angular/material/menu';
 
 import { TokenInterceptor } from './interceptors/token.interceptor';
 
 import { AuthService } from './services/auth.service';
 import { TokenService } from './services/token.service';
-
-import { AuthGuard } from './guards/auth.guard';
-import { JwtModule } from '@auth0/angular-jwt';
 import { PostService } from './services/post.service';
-import { AddPostDialogComponent } from './components/feed/add-post-dialog/add-post-dialog.component';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatMenuModule } from '@angular/material/menu';
 import { ProfileService } from './services/profile.service';
 
+import { AuthGuard } from './guards/auth.guard';
+import { ChatService } from './services/chat.service';
 
 @NgModule({
   declarations: [
@@ -65,6 +68,8 @@ import { ProfileService } from './services/profile.service';
     ResetPasswordViewComponent,
     ResetPasswordComponent,
     AddPostDialogComponent,
+    ChatComponent,
+    ChatContainerComponent,
   ],
   imports: [
     BrowserModule,
@@ -101,6 +106,7 @@ import { ProfileService } from './services/profile.service';
     TokenService,
     PostService,
     ProfileService,
+    ChatService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

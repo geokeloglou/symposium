@@ -6,6 +6,7 @@ import { LoginViewComponent } from './views/authentication-views/login-view/logi
 import { RegisterViewComponent } from './views/authentication-views/register-view/register-view.component';
 import { ForgotPasswordViewComponent } from './views/authentication-views/forgot-password-view/forgot-password-view.component';
 import { ResetPasswordViewComponent } from './views/authentication-views/reset-password-view/reset-password-view.component';
+import { ChatContainerComponent } from './views/chat-container/chat-container.component';
 import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
@@ -21,6 +22,11 @@ const routes: Routes = [
       {
         path: 'home',
         component: HomeContainerComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'chat',
+        component: ChatContainerComponent,
         canActivate: [AuthGuard]
       },
     ]

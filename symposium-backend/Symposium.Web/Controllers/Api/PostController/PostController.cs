@@ -21,9 +21,9 @@ namespace Symposium.Web.Controllers.Api.PostController
          Consumes("multipart/form-data"), 
          RequestFormLimits(MultipartBodyLengthLimit = 20000000), 
          RequestSizeLimit(20000000)]
-        public async Task<IActionResult> CreatePost([FromForm] CreatePostDto post)
+        public async Task<IActionResult> Create([FromForm] CreatePostDto createPostDto)
         {
-            var response = await _postService.CreatePost(post);
+            var response = await _postService.CreatePost(createPostDto);
             if (!response.Success)
             {
                 return BadRequest(response);
@@ -33,7 +33,7 @@ namespace Symposium.Web.Controllers.Api.PostController
         }
         
         [HttpPost("delete")]
-        public async Task<IActionResult> DeletePost(DeletePostDto deletePostDto)
+        public async Task<IActionResult> Delete(DeletePostDto deletePostDto)
         {
             var response = await _postService.DeletePost(deletePostDto);
             if (!response.Success)
@@ -45,7 +45,7 @@ namespace Symposium.Web.Controllers.Api.PostController
         }
         
         [HttpGet("get")]
-        public async Task<IActionResult> GetPosts()
+        public async Task<IActionResult> Get()
         {
             var response = await _postService.GetPosts();
             if (!response.Success)
@@ -57,7 +57,7 @@ namespace Symposium.Web.Controllers.Api.PostController
         }
         
         [HttpGet("get-all")]
-        public async Task<IActionResult> GetAllPosts()
+        public async Task<IActionResult> GetAll()
         {
             var response = await _postService.GetAllPosts();
             if (!response.Success)
@@ -69,7 +69,7 @@ namespace Symposium.Web.Controllers.Api.PostController
         }
         
         [HttpPost("like")]
-        public async Task<IActionResult> LikePost(LikePostDto likePostDto)
+        public async Task<IActionResult> Like(LikePostDto likePostDto)
         {
             var response = await _postService.LikePost(likePostDto);
             if (!response.Success)
@@ -81,7 +81,7 @@ namespace Symposium.Web.Controllers.Api.PostController
         }
         
         [HttpGet("liked/get-all")]
-        public async Task<IActionResult> GetAllLikedPosts()
+        public async Task<IActionResult> GetAllLiked()
         {
             var response = await _postService.GetAllLikedPosts();
             if (!response.Success)
