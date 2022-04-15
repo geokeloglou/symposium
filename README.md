@@ -26,4 +26,3 @@
 - [Docker-compose](https://docs.docker.com/compose/) - Multi-containerization
 - [Azure Blob](https://azure.microsoft.com/en-us/services/storage/blobs/) - Storage
 - [Maildev](https://github.com/maildev/maildev) - Email for development & testing
-- [RESTful API](https://dotnet.microsoft.com/apps/aspnet/apis) - API type
