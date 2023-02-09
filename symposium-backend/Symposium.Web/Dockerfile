@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY *.sln .
 
-# Restore first, for layer caching puproses
+# Restore first, for layer caching purposes
 COPY Symposium.Web/Symposium.Web.csproj Symposium.Web/
 COPY Symposium.Data/Symposium.Data.csproj Symposium.Data/
 COPY Symposium.DTO/Symposium.DTO.csproj Symposium.DTO/
