@@ -12,7 +12,7 @@ COPY Symposium.Services/Symposium.Services.csproj Symposium.Services/
 
 RUN dotnet restore Symposium.Web/Symposium.Web.csproj
 
-# and then copy the rest of the files..
+# and then copy the rest of the files
 COPY Configs /Configs
 COPY Symposium.Web/ Symposium.Web/
 COPY Symposium.DTO/ Symposium.DTO/
